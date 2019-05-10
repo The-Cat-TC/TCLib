@@ -1,0 +1,117 @@
+# Changelog for TCLib
+
+## Version 1.0.0
+
+### add class for the TCLib
+
+* Service
+* Device
+* Option
+* Status
+* FileTypeExtension
+
+### add function for the TCLib
+
+* getName
+* getOption
+* getStatus
+* isAktiv
+* isRunning
+* setOption
+* setStatus
+
+### Add more features
+
+* JavaDoc for all class and function
+* FileTypeExtension *.sh
+* FileTypeExtension *.htm
+* FileTypeExtension *.html
+* FileTypeExtension *.inf
+* FileTypeExtension *.shtm
+* FileTypeExtension *.shtml
+* FileTypeExtension *.tccolor
+* FileTypeExtension *.tcconfig
+* FileTypeExtension *.ssc
+* FileTypeExtension *.ssd
+* FileTypeExtension *.ssx
+* FileTypeExtension *.cmd
+* FileTypeExtension *.ini
+
+
+## Version 1.0.1
+
+### Add class for the TCLib
+
+* SQLLite
+
+### Add function for the TCLib
+
+* createDatebase
+* connectDatebase
+
+### Add more features
+
+* JavaDoc for the class SQLLite
+
+
+## Version 1.0.2
+
+### Add function for the TCLib
+
+* createTable
+
+### Add more features
+
+* Update Javadoc for SQLLite class
+
+
+## Version 1.0.3
+
+### Add class for the TCLib
+
+* Time
+* GZip
+
+### Add function for the TCLib
+
+* getTime
+* getDate
+* pack (gzip)
+
+### Add more features
+
+* JavaDoc updating with Time and Pack function
+
+
+## Version 1.0.4
+
+### Add class for the TCLib
+
+* FileRecursive
+* RunApplication
+* Seperator
+* Configuration
+* FileRead
+* XMLReaderJDOM
+
+### Add function for the TCLib
+
+* file
+* dir
+* exec
+* lineSeperator
+* pathSeperator
+* fileSeperator
+* loadSetting
+* saveSetting
+* read
+* XMLRead
+* readRootName
+* listChilderen
+* readValue
+* readAttributsValue
+
+### Add more features
+
+* Updating the Javadoc.
+* Updating the FileTypeExtension library.
