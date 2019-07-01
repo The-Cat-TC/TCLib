@@ -31,6 +31,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
     public static  FileNameExtensionFilter TheCatColorFile = new FileNameExtensionFilter("The Cat Color File","tccolor");
     
     /**
+     * The extension the cat uml file (.TCUML).
+     */
+    
+    public static FileNameExtensionFilter TheCatUMLFile = new FileNameExtensionFilter("The Cat UML File", "tcuml");
+    
+    /**
      * The extension windows initialization File(.INI).
      */
     public static  FileNameExtensionFilter WindowsInitializationFile = new FileNameExtensionFilter("Windows Initialization File","ini");
@@ -66,7 +72,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
     public static  FileNameExtensionFilter csource = new FileNameExtensionFilter("C Source", "c");
     
     /**
-     * The extension C Header File(.g).
+     * The extension C Header File(.h).
      */
     public static  FileNameExtensionFilter c_Header = new FileNameExtensionFilter("C Header", "h");
     
@@ -95,5 +101,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
      */
     public static  FileNameExtensionFilter Java_Source = new FileNameExtensionFilter("Java Source", "java");
     
-    
+    /**
+     * The extension Textdocument(.txt).
+     */
+    public static FileNameExtensionFilter Textfile = new FileNameExtensionFilter("Textdokument", "txt");
+ 
+    /**
+     * The extension PlantUML File(.puml).
+     */
+    public static FileNameExtensionFilter PlantUMLFile = new FileNameExtensionFilter("PlantUML File", "puml");
 }

@@ -66,7 +66,7 @@ public class FileWrite {
     public boolean write(String text, String path, FileNameExtensionFilter filefilter) {
         PrintWriter pWriter = null;
         try {
-            File f = new File(path + filefilter.getExtensions()[0]);
+            File f = new File(path + "." + filefilter.getExtensions()[0]);
             FileWriter fw = new FileWriter(f);
             if (fw == null) {
                 return false;

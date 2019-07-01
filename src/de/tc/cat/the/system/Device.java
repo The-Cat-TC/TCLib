@@ -12,7 +12,7 @@ package de.tc.cat.the.system;
  * @since 1.8
  */
 public class Device {
-    private final String name;
+    private String name;
     private String status;
     
     /**
@@ -60,6 +60,15 @@ public class Device {
     public void setStatus(Status dstatus)
     {
         status = dstatus.name();
+    }
+    
+    /**
+     * Sets the name of the device
+     * @param dname The name that the device should have.
+     */
+    public void setName(String dname)
+    {
+        name = dname;
     }
     
     
