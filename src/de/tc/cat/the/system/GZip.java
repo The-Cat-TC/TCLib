@@ -25,6 +25,7 @@ public class GZip {
      */
     public void packen(File[] args, String name)
     {
+        @SuppressWarnings("UnusedAssignment")
         int read = 0;
       byte[] data = new byte[1024];
         // Jeden übergebenen Dateinamen bearbeiten
@@ -32,13 +33,16 @@ public class GZip {
             try {
                 // Original-Datei mit Stream verbinden
                 File f = new File(arg.getAbsolutePath());
-                FileInputStream in = new FileInputStream(f);
+                GZIPOutputStream out;
                 // Ausgabedatei erstellen
-                GZIPOutputStream out = new GZIPOutputStream(new FileOutputStream(name + ".gz"));
-                // Alle Daten der Original-Datei in die Ausgabedatei schreiben
-                while((read = in.read(data, 0, 1024)) != -1) {
-                    out.write(data, 0, read);
-                }     in.close();
+                try (FileInputStream in = new FileInputStream(f)) {
+                    // Ausgabedatei erstellen
+                    out = new GZIPOutputStream(new FileOutputStream(name + ".gz"));
+                    // Alle Daten der Original-Datei in die Ausgabedatei schreiben
+                    while((read = in.read(data, 0, 1024)) != -1) {
+                        out.write(data, 0, read);
+                    }
+                }
                 out.close();
                 f.delete();   // Original-Datei löschen
             }catch(IOException e) {
