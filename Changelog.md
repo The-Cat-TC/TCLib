@@ -115,3 +115,12 @@
 
 * Updating the Javadoc.
 * Updating the FileTypeExtension library.
+
+
+## Version 1.0.5
+
+### Add more features
+
+*Updating the FileTypeExtension class
+*Updating javadoc
+*bugfix class service
