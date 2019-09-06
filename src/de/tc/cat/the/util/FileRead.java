@@ -32,6 +32,7 @@ public class FileRead {
             while ((i = fr.read(c)) >=0){
                 return String.valueOf(c, 0, 1024);
             }
+            fr.close();
             return "null point";
     }
 }

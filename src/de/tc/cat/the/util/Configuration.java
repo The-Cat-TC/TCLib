@@ -27,6 +27,11 @@ public class Configuration {
     {
         conf = config;
     }
+    
+    public Configuration()
+    {
+        conf = new Properties();
+    }
     /**
      * Loads a Properties file.
      * @param file Specifies a FileInputStream object that loads the confidence file.
@@ -55,16 +60,67 @@ public class Configuration {
     }
     
     /**
-     * 
-     * @param file 
+     * Loads a Properties file as XML.
+     * @param file Specifies a FileInputStream object that loads the confidence file.
+     * @param Key Specifies the configuration name as a string.
+     * @param Value Specifies the Configuarions worth as a string.
+     * @return Returns the Configuarions worth as a string.
+     * @throws IOException 
+     */
+    public String loadSettingXML(FileInputStream file,String Key,String Value) throws IOException
+    {
+        conf.loadFromXML(file);
+        return conf.getProperty(Key,Value);
+    }
+    
+    /**
+     * Loads a Properties file as XML.
+     * @param file Specifies a FileInputStream object that loads the confidence file.
+     * @param Key Specifies the configuration name as a string.
+     * @return Returns the Configuarions worth as a string.
+     * @throws IOException 
+     */
+    public String loadSettingXML(FileInputStream file,String Key) throws IOException
+    {
+        conf.loadFromXML(file);
+        return conf.getProperty(Key);
+    }
+    
+    
+    
+    /**
+     * Sets a configurations file to those that specify contains keys and values.
+     * @param file Defines the input file as FileInputStream to which is written.
      * @param Key Specifies the configuration name as a string.
      * @param Value Specifies the Configuarions worth as a string.
      * @param Coment Specifies a Comment for the Configurations file.
+     * @param save Indicates whether the file is saved or not. True or false. 
      * @throws IOException 
      */
-    public void saveSetting(FileOutputStream file, String Key, String Value, String Coment) throws IOException
+    public void saveSetting(FileOutputStream file, String Key, String Value, String Coment,boolean save) throws IOException
     {
         conf.setProperty(Key, Value);
-        conf.store(file, Coment);
+        if (save == true)
+        {
+            conf.store(file, Coment);
+        }
+    }
+    
+    /**
+     * Sets a configurations file to those that specify contains keys and values and speares them as XML.
+     * @param file Defines the input file as FileInputStream to which is written.
+     * @param Key Specifies the configuration name as a string.
+     * @param Value Specifies the Configuarions worth as a string.
+     * @param comment Specifies a Comment for the Configurations file.
+     * @param save Indicates whether the file is saved or not. True or false. 
+     * @throws IOException 
+     */
+    public void saveSettingXML(FileOutputStream file,String Key,String Value,String comment,boolean save) throws IOException
+    {
+        conf.setProperty(Key, Value);
+        if (save == true)
+        {
+            conf.storeToXML(file, comment);
+        }
     }
 }

@@ -28,7 +28,7 @@ public class Seperator {
      */
     public static final String pathseperator()
     {
-        return System.getProperty("path.separator");
+        return System.getProperty("path.seperator");
     }
     
     /**
