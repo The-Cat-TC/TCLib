@@ -5,15 +5,19 @@
  */
 package de.tc.cat.the.system;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Christian Trostmann
- * @version 1.0
+ * @version 1.3
  * @since 1.8
  */
 public class Device {
     private String name;
     private String status;
+    private final List<DeviceListener> onSystemListener = new ArrayList<>();
     
     /**
      * Creates a new device.
@@ -24,6 +28,7 @@ public class Device {
     {
         name = dname;
         status = dstatus.name();
+        getAction();
     }
     
     /**
@@ -60,6 +65,7 @@ public class Device {
     public void setStatus(Status dstatus)
     {
         status = dstatus.name();
+        getAction();
     }
     
     /**
@@ -71,5 +77,50 @@ public class Device {
         name = dname;
     }
     
+    /**
+     * Performs the actions that lead the Device class.
+     */
+    public final void getAction()
+    {
+        if ("Aktiviert".equals(status))
+        {
+            onEnableEvent();
+        }
+        else if ("Deaktiviert".equals(status))
+        {
+            onDisableEvent();
+        }
+    }
     
+    
+    /**
+     * Adds an EventListener class to the Device class.
+     * @param listener Defines the listener from the type DeviceListener.
+     */
+    public void addSystemListener(DeviceListener listener)
+    {
+        onSystemListener.add(listener);
+    }
+    
+    /**
+     * Removes the Device class from an EventListener.
+     * @param listener Defines the listener from the type DeviceListener.
+     */
+    public void removeSystemListener(DeviceListener listener)
+    {
+        onSystemListener.remove(listener);
+    }
+    
+    
+    
+    
+    private void onEnableEvent()
+    {
+        onSystemListener.forEach(DeviceListener -> DeviceListener.onEnable(this.name));
+    }
+    
+    private void onDisableEvent()
+    {
+        onSystemListener.forEach(DeviceListener -> DeviceListener.onDisable(this.name));
+    }
 }
