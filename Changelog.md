@@ -131,3 +131,23 @@
 
 * Updating javadoc
 * Bugfix class configuration
+
+## Version 1.0.7
+
+### Add class for the TCLib
+
+* DeviceListener
+* ServiceListener
+
+### Add function for the TCLib
+
+* addListener
+* removeListener
+* onStart
+* onEnable
+* onDisable
+* onStop
+
+### Add more features
+
+* Updating the Javadoc.
