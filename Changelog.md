@@ -121,13 +121,6 @@
 
 ### Add more features
 
-* Updating the FileTypeExtension class
-* Updating javadoc
-* bugfix class service
-
-## Version 1.0.6
-
-### Add more features
-
-* Updating javadoc
-* Bugfix class configuration
+*Updating the FileTypeExtension class
+*Updating javadoc
+*bugfix class service
