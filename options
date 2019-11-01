@@ -1,0 +1,28 @@
+--class-path
+'C:/Users/the-c/.m2/repository/org/fusesource/jansi/jansi/1.18/jansi-1.18.jar;C:/Users/the-c/.m2/repository/com/diogonunes/JCDP/2.0.3.1/JCDP-2.0.3.1.jar'
+--module-path
+'C:/Users/the-c/.m2/repository/org/jdom/jdom2/2.0.6/jdom2-2.0.6.jar;C:/Users/the-c/.m2/repository/org/xerial/sqlite-jdbc/3.28.0/sqlite-jdbc-3.28.0.jar'
+--patch-module
+TCLib='C:/Users/the-c/Documents/NetBeansProjects/TCLib/src/main/java'
+-encoding
+'Cp1252'
+-protected
+--module-source-path
+'C:/Users/the-c/Documents/NetBeansProjects/TCLib/src'
+-author
+-bottom
+'Copyright &#169; 2019. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/the-c/Documents/NetBeansProjects/TCLib'
+-docencoding
+'UTF-8'
+-doctitle
+'TCLib 1.0.8 API'
+-linkoffline
+'https://docs.oracle.com/en/java/javase/12/docs/api' 'C:/Users/the-c/Documents/NetBeansProjects/TCLib/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'TCLib 1.0.8 API'

@@ -10,3 +10,5 @@ nbproject/project.properties
 nbproject/project.xml
 /build/
 /dist
+/target/
+/nbproject/
