@@ -151,3 +151,26 @@
 ### Add more features
 
 * Updating the Javadoc.
+
+## Version 1.0.8 ##
+
+### Add class for the TCLib
+
+* FileTypeExtension
+* ConsoleColorOut
+
+### Add function for the TCLib
+
+* createFileNameExtensionFilter
+* printCustom
+* printError
+* printWarning
+* printInfo
+* printlnError
+* printlnWarning
+* printlnInfo
+
+### Add more features
+
+* Update javadoc
+* Update from java 8 to java 13
