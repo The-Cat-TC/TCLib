@@ -174,3 +174,15 @@
 
 * Update javadoc
 * Update from java 8 to java 13
+
+## Version 1.0.9 ##
+
+
+### Add more features
+* Remove XMLReaderJDOM Class
+* Change function in the Servic class
+* Change function in the Device class
+* Remove function getAction in the Service class
+* Remove function getAction in the Device class
+* Update javadoc
+
