@@ -236,8 +236,8 @@ public class Configuration extends Properties{
      * Save the configuration with all vlaues.
      *
      * @param file Defines the input file as File to which is written.
-     * @throws java.io.FileNotFoundException
-     * @throws java.io.IOException
+     * @throws java.io.FileNotFoundException if any.
+     * @throws java.io.IOException if any.
      */
     public void saveSetting(File file) throws FileNotFoundException, IOException
     {
@@ -248,7 +248,7 @@ public class Configuration extends Properties{
      * Save the configuration with all vlaues.
      *
      * @param file Defines the input file as File to which is written.
-     * @throws java.io.IOException
+     * @throws java.io.IOException if any.
      */
     public void saveSetting(FileOutputStream file) throws IOException
     {

@@ -8,7 +8,6 @@ module de.tc.cat.the.TCLib {
     requires sqlite.jdbc;
     requires java.base;
     requires java.se;
-    requires jdom;
     requires jdk.javadoc;
     requires jdk.jlink;
     requires jdk.jdeps;

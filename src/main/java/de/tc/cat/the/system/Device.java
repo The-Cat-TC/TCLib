@@ -30,7 +30,14 @@ public class Device {
     {
         name = dname;
         status = dstatus.name();
-        getAction();
+        if ("Aktiviert".equals(status))
+        {
+            onEnableEvent();
+        }
+        else if ("Deaktiviert".equals(status))
+        {
+            onDisableEvent();
+        }
     }
     
     /**
@@ -71,7 +78,14 @@ public class Device {
     public void setStatus(Status dstatus)
     {
         status = dstatus.name();
-        getAction();
+        if ("Aktiviert".equals(status))
+        {
+            onEnableEvent();
+        }
+        else if ("Deaktiviert".equals(status))
+        {
+            onDisableEvent();
+        }
     }
     
     /**
@@ -82,21 +96,6 @@ public class Device {
     public void setName(String dname)
     {
         name = dname;
-    }
-    
-    /**
-     * Performs the actions that lead the Device class.
-     */
-    public final void getAction()
-    {
-        if ("Aktiviert".equals(status))
-        {
-            onEnableEvent();
-        }
-        else if ("Deaktiviert".equals(status))
-        {
-            onDisableEvent();
-        }
     }
     
     

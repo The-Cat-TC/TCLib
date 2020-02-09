@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="TCLib 1.0.9">
+
+    <parameter name="e"  value="Test"/>
+    <test name="Test Package System">
+        <classes>
+            <class name="de.tc.cat.the.System.ServiceTest"/>
+            <class name="de.tc.cat.the.System.DeviceTest"/>
+        </classes>
+    </test>
+
+</suite>
