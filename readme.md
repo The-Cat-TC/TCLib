@@ -186,3 +186,10 @@
 * Remove function getAction in the Device class
 * Update javadoc
 
+
+## Version 1.1.0 ##
+
+
+### Add more features
+* Update JDK version 13 to 14
+* Update Javadoc
