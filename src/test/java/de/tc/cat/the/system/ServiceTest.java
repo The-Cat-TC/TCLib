@@ -14,11 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.tc.cat.the.System;
+package de.tc.cat.the.system;
 
-import static org.testng.Assert.*;
-import org.testng.annotations.*;
-import de.tc.cat.the.system.*;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertEquals;
 import static org.testng.Reporter.log;
 
 /**
@@ -35,42 +36,42 @@ public class ServiceTest {
     //
     // @Test
     // public void hello() {}
-    Service s = new Service("Test", Status.Aktiviert, Option.Run);
+    Service s = new Service("Test", Status.Aktiviert, Option.Run, "This a Test.");
 
     @Test(groups = "Service")
     public void getName() {
 
-        log("Test for getName method");
+        log("Test for getName method by Service");
         assertEquals("Test", s.getName());
     }
 
     @Test(groups = "Service")
     public void getOption() {
-        log("Test for getOption method");
+        log("Test for getOption method by Service");
         assertEquals("Run", s.getOption());
     }
 
     @Test(groups = "Service")
     public void getStatus() {
-        log("Test for getStatus method");
+        log("Test for getStatus method by Service");
         assertEquals("Aktiviert", s.getStatus());
     }
 
     @Test(groups = "Service")
     public void isAktiv() {
-        log("Test for isAktiv method");
+        log("Test for isAktiv method by Service");
         assertEquals(true, s.isAktiv());
     }
 
     @Test(groups = "Service")
     public void isRuning() {
-        log("Tes for isRunning method");
+        log("Test for isRunning method by Service");
         assertEquals(true, s.isRunning());
     }
 
     @Test(groups = "Service")
     public void setOption() {
-        log("Test for setOption.<br>");
+        log("Test for setOption by Service.<br>");
         log("Current Option is Run.<br>");
         assertEquals("Run", s.getOption());
         log("Set Option to Stop.<br>");
@@ -81,7 +82,7 @@ public class ServiceTest {
 
     @Test(groups = "Service")
     public void setStatus() {
-        log("Test for setStatus.<br>");
+        log("Test for setStatus by Service.<br>");
         log("Current Status is Aktiviert.<br>");
         assertEquals("Aktiviert", s.getStatus());
         log("Set Status to Deaktiviert.<br>");
@@ -121,7 +122,7 @@ public class ServiceTest {
     @Test(groups="Service")
     public void onStartEvent(String e)
     {
-        log("Test the onStart Event.<br>");
+        log("Test the onStart Event by Service.<br>");
         assertEquals(s.getName(), e);
     }
     
@@ -129,7 +130,7 @@ public class ServiceTest {
     @Test(groups="Service")
     public void onStopEvent(String e)
     {
-        log("Test the onStop Event.<br>");
+        log("Test the onStop Event by Service.<br>");
         assertEquals(s.getName(), e);
     }
     
@@ -137,7 +138,7 @@ public class ServiceTest {
     @Test(groups="Service")
     public void onEnableEvent(String e)
     {
-        log("Test the onEnable Event.<br>");
+        log("Test the onEnable Event by Service.<br>");
         assertEquals(s.getName(), e);
     }
     
@@ -145,7 +146,7 @@ public class ServiceTest {
     @Test(groups="Service")
     public void onDisableEvent(String e)
     {
-        log("Test the onDisable Event.<br>");
+        log("Test the onDisable Event by Service.<br>");
         assertEquals(s.getName(), e);
     }
 

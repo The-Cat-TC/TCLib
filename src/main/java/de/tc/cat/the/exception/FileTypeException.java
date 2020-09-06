@@ -21,8 +21,11 @@ package de.tc.cat.the.exception;
  * Returns a Exception is file type not corect.
  *
  * @author Christian Trostmann
- * @since 13
  * @version 1.0
+ * @see java.io.Serializable
+ * @see java.lang.Exception
+ * @see java.lang.Throwable
+ * @since 13
  */
 public class FileTypeException extends Exception {
 

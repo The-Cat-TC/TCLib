@@ -1,195 +1,60 @@
-# Changelog for TCLib
-
-## Version 1.0.0
-
-### add class for the TCLib
-
-* Service
-* Device
-* Option
-* Status
-* FileTypeExtension
-
-### add function for the TCLib
-
-* getName
-* getOption
-* getStatus
-* isAktiv
-* isRunning
-* setOption
-* setStatus
-
-### Add more features
-
-* JavaDoc for all class and function
-* FileTypeExtension *.sh
-* FileTypeExtension *.htm
-* FileTypeExtension *.html
-* FileTypeExtension *.inf
-* FileTypeExtension *.shtm
-* FileTypeExtension *.shtml
-* FileTypeExtension *.tccolor
-* FileTypeExtension *.tcconfig
-* FileTypeExtension *.ssc
-* FileTypeExtension *.ssd
-* FileTypeExtension *.ssx
-* FileTypeExtension *.cmd
-* FileTypeExtension *.ini
-
-
-## Version 1.0.1
-
-### Add class for the TCLib
-
-* SQLLite
-
-### Add function for the TCLib
-
-* createDatebase
-* connectDatebase
-
-### Add more features
-
-* JavaDoc for the class SQLLite
-
-
-## Version 1.0.2
-
-### Add function for the TCLib
-
-* createTable
-
-### Add more features
-
-* Update Javadoc for SQLLite class
-
-
-## Version 1.0.3
-
-### Add class for the TCLib
-
-* Time
-* GZip
-
-### Add function for the TCLib
-
-* getTime
-* getDate
-* pack (gzip)
-
-### Add more features
-
-* JavaDoc updating with Time and Pack function
-
-
-## Version 1.0.4
-
-### Add class for the TCLib
-
-* FileRecursive
-* RunApplication
-* Seperator
-* Configuration
-* FileRead
-* XMLReaderJDOM
-
-### Add function for the TCLib
-
-* file
-* dir
-* exec
-* lineSeperator
-* pathSeperator
-* fileSeperator
-* loadSetting
-* saveSetting
-* read
-* XMLRead
-* readRootName
-* listChilderen
-* readValue
-* readAttributsValue
-
-### Add more features
-
-* Updating the Javadoc.
-* Updating the FileTypeExtension library.
-
-
-## Version 1.0.5
-
-### Add more features
-
-* Updating the FileTypeExtension class
-* Updating javadoc
-* bugfix class service
-
-## Version 1.0.6
-
-### Add more features
-
-* Updating javadoc
-* Bugfix class configuration
-
-## Version 1.0.7
-
-### Add class for the TCLib
-
-* DeviceListener
-* ServiceListener
-
-### Add function for the TCLib
-
-* addListener
-* removeListener
-* onStart
-* onEnable
-* onDisable
-* onStop
-
-### Add more features
-
-* Updating the Javadoc.
-
-## Version 1.0.8 ##
-
-### Add class for the TCLib
-
-* FileTypeExtension
-* ConsoleColorOut
-
-### Add function for the TCLib
-
-* createFileNameExtensionFilter
-* printCustom
-* printError
-* printWarning
-* printInfo
-* printlnError
-* printlnWarning
-* printlnInfo
-
-### Add more features
-
-* Update javadoc
-* Update from java 8 to java 13
-
-## Version 1.0.9 ##
-
-
-### Add more features
-* Remove XMLReaderJDOM Class
-* Change function in the Servic class
-* Change function in the Device class
-* Remove function getAction in the Service class
-* Remove function getAction in the Device class
-* Update javadoc
-
-
-## Version 1.1.0 ##
-
-
-### Add more features
-* Update JDK version 13 to 14
-* Update Javadoc
+# TCLib 
+The TCLib is a Liberty that expands Java by 
+some functions or supplements or simplifies some functions.
+The project runs under the [GNU General Public License Version 3](license.md) or higher.
+In the [changelog](changelog.md) you can see the changes to the project as well as Liberty.
+In the issues area you can report problems or errors so that we can deal with them quickly.
+In order to report errors, make suggestions or otherwise, we ask you to use the following languages: 
+* German 
+* English
+
+other languages are not supported, so these requests cannot be processed.
+You can find the documentation for Liberty [here](https://doc.the-cat-tc.de).
+
+## Examples
+
+### Register service permanently in the system.
+
+To save services or devices in a file so that they can be accessed at any time by other programs using TCLib, proceed as follows:
+
+The module.java:
+```java
+module Test {
+    requier de.tc.cat.TClib;
+    require java.se;
+}
+```
+The Test.java:
+
+```java
+public class Test {
+    import de.tc.cat.the.system.*
+    public void main(String[] args) {
+        Register reg = new Register();
+        Service testService = new Service("Test",Status.Aktiviert,
+        Option.Run,"This is a test description");
+        reg.addService(testService);
+    }
+}
+```
+Done, create a class in which a service is permanently integrated. 
+Do not send this service has no influence on existing services in the system. 
+The services and devices are created purely virtually. 
+A connection to other programs is unfortunately not possible.
+
+They create a device in much the same way as a deinst. 
+The module.java remains the same. The Test class is expanded as follows:
+```java
+public class Test {
+    import de.tc.cat.the.system.*
+    public void main(String[] args) {
+        Register reg = new Register();
+        Device testDevice = new Device("Test",Status.Aktiviert,Category.Grafik);
+        reg.addDevice(testDevice);
+    }
+}
+```
+
+Services and devices are then created. To delete them, simply use the functions
+* removeService to delete a service.
+* removeDevice to delete a device.

@@ -5,11 +5,7 @@
  */
 package de.tc.cat.the.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Properties;
 
 /**
@@ -193,22 +189,20 @@ public class Configuration extends Properties{
             conf.storeToXML(file, Value);
         }
     }
-    
+
     /**
      * Sets a configurations file to those that specify contains keys and values.
      *
-     * @param file Defines the input file as File to which is written.
-     * @param Key Specifies the configuration name as a string.
-     * @param Value Specifies the Configuarions worth as a string.
+     * @param file   Defines the input file as File to which is written.
+     * @param Key    Specifies the configuration name as a string.
+     * @param Value  Specifies the Configuarions worth as a string.
      * @param Coment Specifies a Comment for the Configurations file.
-     * @param save Indicates whether the file is saved or not. True or false.
+     * @param save   Indicates whether the file is saved or not. True or false.
      * @throws java.io.IOException if any.
      */
-    public void saveSetting(File file, String Key, String Value, String Coment,boolean save) throws IOException
-    {
+    public void saveSetting(File file, String Key, String Value, String Coment, boolean save) throws IOException {
         conf.setProperty(Key, Value);
-        if (save == true)
-        {
+        if (save == true) {
             conf.store(new FileOutputStream(file), Value);
         }
     }

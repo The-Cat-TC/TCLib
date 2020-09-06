@@ -5,12 +5,8 @@
  */
 package de.tc.cat.the.util;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.*;
 
 /**
  * The FileWrite class provides Functions to write Strings in Files.
@@ -34,11 +30,7 @@ public class FileWrite {
     public boolean write(String text, File f) {
         PrintWriter pWriter = null;
         try {
-            var fw = new FileWriter(f.getAbsoluteFile());
-            if (fw == null) {
-                return false;
-            }
-            pWriter = new PrintWriter(new BufferedWriter(fw));
+            pWriter = new PrintWriter(new BufferedWriter(new FileWriter(f.getAbsoluteFile())));
             pWriter.println(text);
         } catch (IOException ioe) {
             exception = ioe.getLocalizedMessage();
@@ -56,22 +48,21 @@ public class FileWrite {
     /**
      * The write Function writes a String into a File.
      *
-     * @param text The Text to be written into the File.
-     * @param path The File path
+     * @param text       The Text to be written into the File.
+     * @param path       The File path
      * @param filefilter The FileExtension filter with the String[] for the File
-     * Extension.
-     * @return Gives a Boolean worth back. True when the DAtei was written
+     *                   Extension.
+     * @return Gives a Boolean worth back. True when the file was written
      * successfully false if an Error arose in writing.
      */
     public boolean write(String text, String path, FileNameExtensionFilter filefilter) {
         PrintWriter pWriter = null;
         try {
             var f = new File(path + "." + filefilter.getExtensions()[0]);
-            var fw = new FileWriter(f);
-            if (fw == null) {
-                return false;
+            if (!f.exists()) {
+                f.createNewFile();
             }
-            pWriter = new PrintWriter(new BufferedWriter(fw));
+            pWriter = new PrintWriter(new BufferedWriter(new FileWriter(f)));
             pWriter.println(text);
         } catch (IOException ioe) {
             exception = ioe.getLocalizedMessage();
@@ -99,8 +90,7 @@ public class FileWrite {
         PrintWriter pWriter = null;
         File f = null;
         try {
-            if (extension.isEmpty())
-            {
+            if (extension.isEmpty()) {
                 return false;
             }
             if (extension.contains(".")) {
@@ -108,16 +98,14 @@ public class FileWrite {
             } else {
                 f = new File(path + "." + extension);
             }
-            
-            if (f == null)
-            {
+
+            if (f == null) {
                 return false;
             }
-            var fw = new FileWriter(f);
-            if (fw == null) {
-                return false;
+            if (!f.exists()) {
+                f.createNewFile();
             }
-            pWriter = new PrintWriter(new BufferedWriter(fw));
+            pWriter = new PrintWriter(new BufferedWriter(new FileWriter(f)));
             pWriter.println(text);
         } catch (IOException ioe) {
             exception = ioe.getLocalizedMessage();

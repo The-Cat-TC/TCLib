@@ -6,11 +6,15 @@
 package de.tc.cat.the.system;
 
 /**
- *Specifies the options of the Servie class.
+ * Specifies the options of the Servie class.
  *
  * @author Christian Trostmann
- * @since 1.8
  * @version 1.0
+ * @see java.lang.Enum
+ * @see java.lang.constant.Constable
+ * @see java.lang.Comparable
+ * @see java.io.Serializable
+ * @since 1.8
  */
 public enum Option {
     /**

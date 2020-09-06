@@ -11,36 +11,38 @@ import java.util.List;
 /**
  * Creates a virtual service.
  *
- * @version 1.0
- * @since 1.8
  * @author Christian Trostmann
+ * @version 1.7
+ * @since 1.8
  */
 public class Service {
 
     private final String name;
     private String status;
     private String option;
+    private String description;
     private final List<ServiceListener> onSystemListener = new ArrayList<>();
 
     /**
-     * Creates the service.
+     * Creates a service using the service class.
      *
-     * @param sname Specifies the name of the service.
-     * @param sstatus Indicates the status of the service, whether it is enabled
-     * or disabled.
-     * @param soption Specifies the option of the service whether it is running
-     * or stopped.
+     * @param sname        Specifies the name of the service.
+     * @param sstatus      Indicates the status of the service, whether it is enabled or disabled.
+     * @param soption      Specifies the option of the service whether it is running or stopped.
+     * @param sdescription Specifies the description of the service.
      */
-    public Service(String sname, Status sstatus, Option soption) {
+    public Service(String sname, Status sstatus, Option soption, String sdescription) {
         name = sname;
         status = sstatus.name();
         option = soption.name();
+        description = sdescription;
+
         if ("Aktiviert".equals(status)) {
             onEnableEvent();
         } else if ("Deaktiviert".equals(status)) {
             onDisableEvent();
         }
-        
+
         if ("Aktiviert".equals(status)) {
             onEnableEvent();
         } else if ("Deaktiviert".equals(status)) {
@@ -76,6 +78,15 @@ public class Service {
     }
 
     /**
+     * Gets the description of the service.
+     *
+     * @return Returns the description of the service as a string.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
      * Get out if the service is enabled.
      *
      * @return Returns the status as a Boolean.
@@ -94,19 +105,12 @@ public class Service {
     }
 
     /**
-     * Changes the status of the service to Enabled or disabled.
+     * Changes the description of the service.
      *
-     * @param sstatus Specifies the states to which the service can take turns
-     * on or off.
+     * @param sdescription Specifies the text that is displayed as the description.
      */
-    public void setStatus(Status sstatus) {
-        status = sstatus.name();
-        if ("Aktiviert".equals(status)) {
-            onEnableEvent();
-        } else if ("Deaktiviert".equals(status)) {
-            onDisableEvent();
-        }
-
+    public void setDescription(String sdescription) {
+        description = sdescription;
     }
 
     /**
@@ -121,6 +125,21 @@ public class Service {
             onStartEvent();
         } else if (option.equals("Stop") || isAktiv() == true) {
             onStopEvent();
+        }
+
+    }
+
+    /**
+     * Changes the status of the service to Enabled or disabled.
+     *
+     * @param sstatus Specifies the states to which the service can take turns on or off.
+     */
+    public void setStatus(Status sstatus) {
+        status = sstatus.name();
+        if ("Aktiviert".equals(status)) {
+            onEnableEvent();
+        } else if ("Deaktiviert".equals(status)) {
+            onDisableEvent();
         }
 
     }
@@ -142,6 +161,7 @@ public class Service {
     public void removeSystemListener(ServiceListener listener) {
         onSystemListener.remove(listener);
     }
+
 
     private void onStopEvent() {
         onSystemListener.forEach(ServiceListener -> ServiceListener.onStop(this.name));

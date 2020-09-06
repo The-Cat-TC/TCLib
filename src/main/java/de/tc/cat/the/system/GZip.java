@@ -6,11 +6,8 @@
 package de.tc.cat.the.system;
 
 import de.tc.cat.the.exception.FileTypeException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -34,7 +31,7 @@ public class GZip {
         @SuppressWarnings("UnusedAssignment")
         int read = 0;
         byte[] data = new byte[1024];
-        // Jeden übergebenen Dateinamen bearbeiten
+        // Jeden ï¿½bergebenen Dateinamen bearbeiten
         for (File arg : args) {
             // Original-Datei mit Stream verbinden
             File f = new File(arg.getAbsolutePath());
@@ -51,7 +48,7 @@ public class GZip {
             }
             out.close();
 
-            f.delete();   // Original-Datei löschen
+            f.delete();   // Original-Datei lï¿½schen
         }
     }
 
@@ -59,9 +56,10 @@ public class GZip {
      * Paket a file in one folder to a gzip archiv.
      *
      * @param args Give a files to pack.
-     * @throws java.io.IOException if any.
+     * @throws java.io.FileNotFoundException if any.
+     * @throws java.io.IOException           if any.
      */
-    public static void packen(File args) throws IOException {
+    public static void packen(File args) throws FileNotFoundException, IOException {
         @SuppressWarnings("UnusedAssignment")
         var read = 0;
         var data = new byte[1024];

@@ -6,11 +6,15 @@
 package de.tc.cat.the.system;
 
 /**
- *Defines the state for the device class and the service class.
+ * Defines the state for the device class and the service class.
  *
- * @author the-c
- * @since 1.8
+ * @author Christian Trostmann
  * @version 1.0
+ * @see java.io.Serializable
+ * @see java.lang.Comparable
+ * @see java.lang.constant.Constable
+ * @see java.lang.Enum
+ * @since 1.8
  */
 public enum Status {
     /**

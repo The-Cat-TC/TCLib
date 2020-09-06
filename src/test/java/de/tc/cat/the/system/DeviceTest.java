@@ -14,12 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.tc.cat.the.System;
+package de.tc.cat.the.system;
 
-import static org.testng.Assert.*;
-import org.testng.annotations.*;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertEquals;
 import static org.testng.Reporter.log;
-import de.tc.cat.the.system.*;
 
 /**
  *
@@ -27,29 +28,29 @@ import de.tc.cat.the.system.*;
  */
 public class DeviceTest {
 
-    Device d = new Device("Test", Status.Aktiviert);
+    Device d = new Device("Test", Status.Aktiviert, Category.Network);
 
     @Test(groups = "Device")
     public void getName() {
-        log("Test for the getName method.");
+        log("Test for the getName method by Device.");
         assertEquals("Test", d.getName());
     }
 
     @Test(groups = "Device")
     public void getStatus() {
-        log("Test for the getStatus method.");
+        log("Test for the getStatus method by Device.");
         assertEquals("Aktiviert", d.getStatus());
     }
 
     @Test(groups = "Device")
     public void isAktiv() {
-        log("Test for the isAktiv method.");
+        log("Test for the isAktiv method by Device.");
         assertEquals(true, d.isAktiv());
     }
 
     @Test(groups = "Device")
     public void setStatus() {
-        log("Test for the setStatus method.<br>");
+        log("Test for the setStatus method by Device.<br>");
         log("Current Status is Aktiviert");
         assertEquals("Aktiviert", d.getStatus());
         log("Set Status of Deaktiviert.<br>");
@@ -77,14 +78,14 @@ public class DeviceTest {
     @Parameters({"e"})
     @Test(groups = "Device")
     public void onEnableEvent(String e) {
-        log("Test the onEnable Event.<br>");
+        log("Test the onEnable Event by Device.<br>");
         assertEquals(d.getName(), e);
     }
 
     @Parameters({"e"})
     @Test(groups = "Device")
     public void onDisableEvent(String e) {
-        log("Test the onDisable Event.<br>");
+        log("Test the onDisable Event by Device.<br>");
         assertEquals(d.getName(), e);
     }
 }
