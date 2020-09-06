@@ -5,12 +5,14 @@
  */
 package de.tc.cat.the.system;
 
+import java.io.IOException;
+
 /**
  * Provides all the methods required by the device class to handle an event.
  *
  * @author Christian Trostmann
- * @since 1.8
  * @version 1.0
+ * @since 1.8
  */
 public interface DeviceListener {
     /**
@@ -18,11 +20,12 @@ public interface DeviceListener {
      *
      * @param e Specifies the name of the device.
      */
-    void onEnable(String e);
+    void onEnable(String e) throws IOException;
+
     /**
      * Dispatched when a device is disabled.
      *
      * @param e Specifies the name of the device.
      */
-    void onDisable (String e);
+    void onDisable(String e) throws IOException;
 }

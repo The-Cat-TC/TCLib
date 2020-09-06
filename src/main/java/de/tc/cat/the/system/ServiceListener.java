@@ -5,12 +5,14 @@
  */
 package de.tc.cat.the.system;
 
+import java.io.IOException;
+
 /**
  * Provides all the methods required by the service class to handle an event.
  *
  * @author Christian Trostmann
- * @since 1.8
  * @version 1.0
+ * @since 1.8
  */
 public interface ServiceListener {
     /**
@@ -18,23 +20,26 @@ public interface ServiceListener {
      *
      * @param e Specifies the name of the service.
      */
-    void onStart(String e);
+    void onStart(String e) throws IOException;
+
     /**
      * Dispatched when a service is stopped.
      *
      * @param e Specifies the name of the service.
      */
-    void onStop (String e);
+    void onStop(String e) throws IOException;
+
     /**
      * Dispatched when a service is activated.
      *
      * @param e Specifies the name of the service.
      */
-    void onEnable (String e);
+    void onEnable(String e) throws IOException;
+
     /**
      * Dispatched when a service is disabled.
      *
      * @param e Specifies the name of the service.
      */
-    void onDisable (String e);
+    void onDisable(String e) throws IOException;
 }

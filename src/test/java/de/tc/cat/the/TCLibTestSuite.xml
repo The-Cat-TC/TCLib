@@ -7,13 +7,12 @@
         <classes>
             <class name="de.tc.cat.the.system.ServiceTest"/>
             <class name="de.tc.cat.the.system.DeviceTest"/>
-            <class name="de.tc.cat.the.system.RegisterTest"></class>
         </classes>
     </test>
 
     <test name="Test package Exception">
         <classes>
-            <class name="de.tc.cat.the.exception.FileTypeExceptionTest"/>
+            <class name="de.tc.cat.the.exception.ExceptionTest"/>
         </classes>
     </test>
 

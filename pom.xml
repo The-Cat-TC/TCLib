@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.tc.cat.the</groupId>
     <artifactId>TCLib</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <packaging>jar</packaging>
     <name>TCLib</name>
     <url>https://www.the-cat-tc.de</url>
@@ -40,16 +40,23 @@
         <url>https://github.com/The-Cat-TC/TCLib/issues</url>
     </issueManagement>
     <scm>
-        <connection>scm:git:ssh://git@github.com/devlauer/plantuml-generator.git</connection>
+        <connection>scm:git:ssh://git@github.com/github.com/The-Cat-TC/TCLib.git</connection>
         <developerConnection>scm:git:ssh://git@https://github.com/The-Cat-TC/TCLib.git</developerConnection>
         <url>https://github.com/The-Cat-TC/TCLib/tree/master</url>
         <tag>HEAD</tag>
     </scm>
+    <repositories>
+        <repository>
+            <id>TCLib</id>
+            <name>TCLib</name>
+            <url>https://maven.pkg.github.com/The-Cat-Tc/TCLib</url>
+        </repository>
+    </repositories>
     <distributionManagement>
         <repository>
-            <id>github</id>
+            <id>TClib</id>
             <name>TCLib</name>
-            <url>https://maven.pkg.github.com/The-Cat-TC/TCLib</url>
+            <url>https://maven.pkg.github.com/The-Cat-Tc/TCLib</url>
         </repository>
     </distributionManagement>
     <build>
@@ -68,27 +75,15 @@
                 </executions>
             </plugin>
             <plugin>
-                <artifactId>plantuml-generator-maven-plugin</artifactId>
-                <groupId>de.elnarion.maven</groupId>
-                <version>1.1.2</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
-                        <id>TCLib</id>
                         <goals>
-                            <goal>generate</goal>
+                            <goal>jar</goal>
+                            <goal>javadoc</goal>
                         </goals>
-                        <phase>generate-test-sources</phase>
-                        <configuration>
-                            <encoding>UTF-8</encoding>
-                            <outputFilename>TCLib.puml</outputFilename>
-                            <scanPackages>
-                                <scanPackage>de.tc.cat.the.exception</scanPackage>
-                                <scanPackage>de.tc.cat.the.sql</scanPackage>
-                                <scanPackage>de.tc.cat.the.util</scanPackage>
-                                <scanPackage>de.tc.cat.the.extension</scanPackage>
-                                <scanPackage>de.tc.cat.the.system</scanPackage>
-                            </scanPackages>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -100,80 +95,6 @@
                     <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.2.0</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadoc</id>
-                        <goals>
-                            <goal>fix</goal>
-                            <goal>jar</goal>
-                            <goal>javadoc</goal>
-                        </goals>
-                        <configuration>
-                            <javadocExecutable>H:\Java\jdk-14.0.2\bin\javadoc.exe</javadocExecutable>
-                            <defaultAuthor>Christian Trostmann</defaultAuthor>
-                            <defaultSince>14</defaultSince>
-                            <defaultVersion>1.0</defaultVersion>
-                            <detectJavaApiLink>true</detectJavaApiLink>
-                            <detectLinks>true</detectLinks>
-                            <detectOfflineLinks>true</detectOfflineLinks>
-                            <doctitle>API for ${project.name} Version: ${project.version}
-                            </doctitle> <!-- Used by javadoc:javadoc goal -->
-                            <windowtitle>API for ${project.name} Version: ${project.version}
-                            </windowtitle> <!-- Used by javadoc:javadoc goal -->
-                            <javaApiLinks>
-                                <property>
-                                    <name>api_1.5</name>
-                                    <value>https://docs.oracle.com/javase/1.5.0/docs/api/</value>
-                                </property>
-                                <property>
-                                    <name>api_1.6</name>
-                                    <value>https://docs.oracle.com/javase/6/docs/api/</value>
-                                </property>
-                                <property>
-                                    <name>api_1.7</name>
-                                    <value>https://docs.oracle.com/javase/7/docs/api/</value>
-                                </property>
-                                <property>
-                                    <name>api_1.8</name>
-                                    <value>https://docs.oracle.com/javase/8/docs/api/</value>
-                                </property>
-                                <property>
-                                    <name>api_9</name>
-                                    <value>https://docs.oracle.com/javase/9/docs/api/overview-summary.html</value>
-                                </property>
-                                <property>
-                                    <name>api_10</name>
-                                    <value>https://docs.oracle.com/javase/10/docs/api/overview-summary.html</value>
-                                </property>
-                                <property>
-                                    <name>api_11</name>
-                                    <value>https://docs.oracle.com/en/java/javase/11/docs/api/index.html</value>
-                                </property>
-                                <property>
-                                    <name>api_12</name>
-                                    <value>https://docs.oracle.com/en/java/javase/12/docs/api/index.html</value>
-                                </property>
-                                <property>
-                                    <name>api_13</name>
-                                    <value>https://docs.oracle.com/en/java/javase/13/docs/api/index.html</value>
-                                </property>
-                            </javaApiLinks>
-                        </configuration>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>clirr-maven-plugin</artifactId>
-                        <version>2.8</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -238,16 +159,6 @@
     </build>
     <dependencies>
         <dependency>
-            <artifactId>plantuml-generator-maven-plugin</artifactId>
-            <groupId>de.elnarion.maven</groupId>
-            <version>1.1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.jeluard</groupId>
-            <artifactId>plantuml-maven-plugin</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
             <groupId>org.fusesource.jansi</groupId>
             <artifactId>jansi</artifactId>
             <version>1.18</version>
@@ -300,8 +211,8 @@
                     <reportSet>
                         <id>html</id>
                         <configuration>
-                            <doctitle>API for ${project.name} Version: ${project.version}</doctitle>
-                            <windowtitle>API for ${project.name} Version: ${project.version}</windowtitle>
+                            <doctitle>${project.name} ${project.version}</doctitle>
+                            <windowtitle>${project.name} ${project.version}</windowtitle>
                         </configuration>
                         <reports>
                             <report>javadoc</report>
