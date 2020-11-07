@@ -33,7 +33,7 @@ public class FileRecursive {
             for (var file : files) {
                 if (file.isDirectory()) {
                     LISTDIR.add(file.getAbsolutePath());
-                    listDir(file); // ruft sich selbst mit dem 
+                    listDir(file); // ruft sich selbst mit dem
                     // Unterverzeichnis als Parameter auf
                 } else {
                     LISTFILE.add(file.getAbsolutePath());
@@ -41,7 +41,7 @@ public class FileRecursive {
             }
         }
     }
-    
+
     /**
      * Lists folders and subfolders from a directory
      *
@@ -58,8 +58,7 @@ public class FileRecursive {
      * @return Returns the found files.
      */
     @SuppressWarnings("ReturnOfCollectionOrArrayField")
-    public ArrayList<String> file()
-    { 
+    public ArrayList<String> file() {
         return LISTFILE;
     }
 }

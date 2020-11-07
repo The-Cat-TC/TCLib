@@ -216,3 +216,35 @@
 * Repository
 * Update class Service
 * Update class Device
+
+## Version 1.1.2 ##
+The version was skipped in the changelog.
+
+## Version 1.1.3 ##
+
+### Remove class for the TCLib
+* RunApplication
+* Configuration
+
+### Add class for the TCLib
+* HostInfo
+* OnEnableListener
+* OnDisableListener
+* OnRunningListener
+* OnStoppedListener
+* Networkinterfaces
+
+### Add functions for the TCLib
+* getHostname (HostInfo class)
+* getIpv4 (HostInfo class)
+* getIpv6 (HostInfo class)
+* getInetAddress (HostInfo class)
+* getInet6Address (HostInfo class)
+* read (NetworkInterfaces class)
+* write (NetworkInterfaces class)
+
+### Add more features
+
+* Update the Javadoc
+* Update Device class
+* Update Service class

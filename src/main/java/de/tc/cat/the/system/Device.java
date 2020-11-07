@@ -5,137 +5,300 @@
  */
 package de.tc.cat.the.system;
 
+import de.tc.cat.the.exception.DeviceException;
+import de.tc.cat.the.interfaces.OnDisableListener;
+import de.tc.cat.the.interfaces.OnEnableListener;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 /**
- * <p>Device class.</p>
+ * The <code>Device</code> class is used to create
+ * a virtual device that is saved as a config file.
+ * These can be used in other Java programs.
+ * The created devices can also be used across programs.
  *
  * @author Christian Trostmann
- * @version 1.7
+ * @version 1.8
  * @since 1.8
  */
 public class Device {
-    private String name;
-    private String status;
-    private String category;
-    private final List<DeviceListener> onSystemListener = new ArrayList<>();
+    private static String sep = Seperator.fileseperator();
+    private static String home = System.getProperty("user.home") + sep + ".TC" + sep + "devices";
+    private static String name;
+    private static String category;
+    private static String status;
+    private static String description;
+    private static File device;
+    private static File home2;
+    private static Properties prop = new Properties();
+    private final List<OnDisableListener> onDisableListenerList = new ArrayList<OnDisableListener>();
+    private final List<OnEnableListener> onEnableListenerList = new ArrayList<OnEnableListener>();
 
     /**
-     * Creates a device using the device class.
-     *
-     * @param dname     Specifies the name of the device.
-     * @param dstatus   Sets the status of the device.
-     * @param dcategory Indicates the category of the device.
+     * Creates the device and transfers the start values ​​to it.
+     * @param name Specifies the name of the device.
+     * @param status Indicates the status of the device (activated or deactivated).
+     * @param category Specifies the category of the device.
+     * @param description Specifies the description of the device.
+     * @throws DeviceException Is triggered when an error occurs in the device class.
+     * @throws IOException Is triggered if there is an IO error.
      */
-    public Device(String dname, Status dstatus, Category dcategory) {
-        name = dname;
-        status = dstatus.name();
-        category = dcategory.name();
-        if ("Aktiviert".equals(status)) {
-            onEnableEvent();
-        } else if ("Deaktiviert".equals(status)) {
-            onDisableEvent();
+    public Device(String name, Status status, Category category, String description) throws DeviceException, IOException {
+        this.name = name;
+        this.status = status.name();
+        this.category = category.name();
+        this.description = description;
+        init();
+        event();
+    }
+
+    /**
+     * Creates the device and transfers the start values ​​to it.
+     * @param name Specifies the name of the device.
+     * @param status Indicates the status of the device (activated or deactivated).
+     * @param category Specifies the category of the device.
+     * @throws DeviceException Is triggered when an error occurs in the device class.
+     * @throws IOException Is triggered if there is an IO error.
+     */
+    public Device(String name, Status status, Category category) throws DeviceException, IOException {
+        this.name = name;
+        this.status = status.name();
+        this.category = category.name();
+        this.description = "";
+        init();
+        event();
+    }
+
+    /**
+     * Lists all registers in which the device files are checked.
+     * @return Returns all found devices as an array.
+     * @throws DeviceException Is triggered when an error occurs in the device class.
+     * @throws IOException Is triggered if there is an IO error.
+     */
+    public static Device[] getDevices() throws DeviceException, IOException {
+        List<Device> DeviceList = new ArrayList<Device>();
+        for (File file : home2.listFiles()) {
+            prop.loadFromXML(new FileInputStream(file));
+            Device d = new Device(prop.getProperty("name"),
+                    Status.valueOf(prop.getProperty("status")),
+                    Category.valueOf(prop.getProperty("category")),
+                    prop.getProperty("description"));
+            DeviceList.add(d);
         }
-    }
-    
-    /**
-     * Gets the name of the device.
-     *
-     * @return Returns the name of the device as a string.
-     */
-    public String getName()
-    {
-        return name;
+        return DeviceList.toArray(Device[]::new);
     }
 
     /**
-     * Gets the status of the device.
+     * Gets the current description of the device.
      *
-     * @return Returns the status of the device as a string.
+     * @return Returns the description as a string.
      */
-    public String getStatus() {
-        return status;
+    public String getDescription() {
+        return description;
     }
 
     /**
-     * Reads out the category of the device.
+     * Changes the description of the device.
      *
-     * @return Returns the category of the device.
+     * @param description Specifies the new description of the device.
+     * @throws IOException Is triggered if there is an IO error.
+     */
+    public void setDescription(String description) throws IOException {
+        this.description = description;
+        create();
+        load();
+    }
+
+    /**
+     * Gets the current state of the category.
+     *
+     * @return Returns the current state of the category as a string.
      */
     public String getCategory() {
         return category;
     }
 
     /**
-     * Sets the category of the device.
+     * Changes the category of the device.
      *
-     * @param dcategroy Indicates the category of the device.
+     * @param category Specifies the device's new category.
+     * @throws IOException Is triggered if there is an IO error.
      */
-    public void setCategory(Category dcategroy) {
-        category = dcategroy.name();
+    public void setCategory(Category category) throws IOException {
+        this.category = category.name();
+        create();
+        event();
+        load();
     }
 
     /**
-     * Sets the status of the device.
+     * Gets the current state of the status.
      *
-     * @param dstatus The status that the device should have. Enabled or disabled.
+     * @return Returns the current state of the status as a string.
      */
-    public void setStatus(Status dstatus)
-    {
-        status = dstatus.name();
-        if ("Aktiviert".equals(status)) {
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * Changes the status of the device.
+     *
+     * @param status Specifies the status of the device.
+     * @throws IOException Is triggered if there is an IO error.
+     */
+    public void setStatus(Status status) throws IOException {
+        this.status = status.name();
+        create();
+        event();
+        load();
+    }
+
+    /**
+     * Gets the current name of the device.
+     *
+     * @return Returns the name of the device as a string.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Changes the name of the device.
+     *
+     * @param name Specifies the new name of the device.
+     * @throws IOException Is triggered if there is an IO error.
+     */
+    public void setName(String name) throws IOException {
+        this.name = name;
+        delete();
+        device = new File(home + sep + this.name + ".tcd");
+        device.createNewFile();
+        create();
+        load();
+    }
+
+    /**
+     * Deletes the device and the associated device file.
+     */
+    public void delete() {
+        device.deleteOnExit();
+    }
+
+    /**
+     * Checks whether the device is activated or deactivated.
+     *
+     * @return Returns true if the device is activated.
+     */
+    public boolean isActiv() {
+        return status.equals(Status.Aktiviert.name());
+    }
+
+    /**
+     * Adds the device to the {@link de.tc.cat.the.interfaces.OnEnableListener}.
+     *
+     * @param listener Specifies the {@link de.tc.cat.the.interfaces.OnEnableListener} interface.
+     */
+    public void addEnableListener(OnEnableListener listener) {
+        onEnableListenerList.add(listener);
+    }
+
+    /**
+     * Adds the device to the {@link de.tc.cat.the.interfaces.OnDisableListener}.
+     *
+     * @param listener Specifies the {@link de.tc.cat.the.interfaces.OnDisableListener} interface.
+     */
+    public void addDisableListener(OnDisableListener listener) {
+        onDisableListenerList.add(listener);
+    }
+
+    /**
+     * Removes the {@link de.tc.cat.the.interfaces.OnEnableListener} from the list.
+     *
+     * @param listener Specifies the {@link de.tc.cat.the.interfaces.OnEnableListener} interface.
+     */
+    public void removeEnableListener(OnEnableListener listener) {
+        onEnableListenerList.remove(listener);
+    }
+
+    /**
+     * Removes the {@link de.tc.cat.the.interfaces.OnDisableListener} from the list.
+     *
+     * @param listener Specifies the {@link de.tc.cat.the.interfaces.OnDisableListener} interface.
+     */
+    public void removeDisableListener(OnDisableListener listener) {
+        onDisableListenerList.remove(listener);
+    }
+
+    /*
+    This is the private block.
+    This block controls the entire class functions.
+    Changes in this area can render the class unusable.
+     */
+    private void event() {
+        if (isActiv()) {
             onEnableEvent();
-        } else if ("Deaktiviert".equals(status)) {
+        } else {
             onDisableEvent();
         }
     }
 
-    /**
-     * Check if the device is activated.
-     *
-     * @return Returns True As Boolean if the device is enabled.
-     */
-    public boolean isAktiv() {
-        return "Aktiviert".equals(status);
+    private boolean checkStatus() {
+        if (status.equals(Status.Aktiviert.name())) {
+            return true;
+        } else if (status.equals(Status.Deaktiviert.name())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    /**
-     * Sets the name of the device
-     *
-     * @param dname The name that the device should have.
-     */
-    public void setName(String dname) {
-        name = dname;
+    private void init() throws DeviceException, IOException {
+        if (!checkStatus()) {
+            throw new DeviceException("The status " + this.status + " is not a valid status.");
+        }
+        File home1 = new File(home);
+        File device = new File(home + sep + this.name + ".tcd");
+        this.device = device;
+        this.home2 = home1;
+        if (!home1.exists()) {
+            home1.mkdirs();
+        }
+        if (device.exists()) {
+            load();
+        } else {
+            device.createNewFile();
+            create();
+        }
     }
 
-    /**
-     * Adds an EventListener class to the Device class.
-     *
-     * @param listener Defines the listener from the type DeviceListener.
-     */
-    public void addSystemListener(DeviceListener listener) {
-        onSystemListener.add(listener);
-    }
-    
-    /**
-     * Removes the Device class from an EventListener.
-     *
-     * @param listener Defines the listener from the type DeviceListener.
-     */
-    public void removeSystemListener(DeviceListener listener)
-    {
-        onSystemListener.remove(listener);
+    private void create() throws IOException {
+        prop.setProperty("name", this.name);
+        prop.setProperty("status", this.status);
+        prop.setProperty("category", this.category);
+        prop.setProperty("description", this.description);
+        prop.storeToXML(new ObjectOutputStream(new FileOutputStream(device)), "");
     }
 
-
-    private void onEnableEvent()
-    {
-        onSystemListener.forEach(DeviceListener -> DeviceListener.onEnable(this.name));
+    private void load() throws IOException {
+        prop.loadFromXML(new FileInputStream(device));
+        this.name = prop.getProperty("name");
+        this.status = prop.getProperty("status");
+        this.category = prop.getProperty("category");
+        this.description = prop.getProperty("description");
     }
-    
-    private void onDisableEvent()
-    {
-        onSystemListener.forEach(DeviceListener -> DeviceListener.onDisable(this.name));
+
+    private void onEnableEvent() {
+        onEnableListenerList.forEach(onEnableListenerListener -> {
+            onEnableListenerListener.onEnable(this.name);
+        });
+    }
+
+    private void onDisableEvent() {
+        onDisableListenerList.forEach(onDisableListenerList -> {
+            onDisableListenerList.onDisable(this.name);
+        });
     }
 }

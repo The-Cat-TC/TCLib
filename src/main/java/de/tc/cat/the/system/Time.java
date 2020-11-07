@@ -35,7 +35,7 @@ public class Time {
      * @return Returns the date as a string.
      */
     public static String getDate() {
-        dft = DateTimeFormatter.ISO_DATE;
+        dft = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return ldt.format(dft);
     }
 }

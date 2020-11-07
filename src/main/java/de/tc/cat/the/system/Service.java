@@ -5,330 +5,384 @@
  */
 package de.tc.cat.the.system;
 
-import de.tc.cat.the.exception.ServiceNotFoundException;
-import de.tc.cat.the.util.Configuration;
+import de.tc.cat.the.exception.ServiceException;
+import de.tc.cat.the.interfaces.OnDisableListener;
+import de.tc.cat.the.interfaces.OnEnableListener;
+import de.tc.cat.the.interfaces.OnRunningListener;
+import de.tc.cat.the.interfaces.OnStopedListener;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 /**
- * Creates a virtual service.
+ * The <code>Service</code> class is used to create
+ * a virtual service that is saved as a config file.
+ * These can be used in other Java programs.
+ * The created services can also be used across programs.
  *
  * @author Christian Trostmann
- * @version 1.8
+ * @version 1.9
  * @since 1.8
  */
-@SuppressWarnings("ALL")
 public class Service {
 
-    private static Configuration conf = new Configuration();
-    private final List<ServiceListener> onSystemListener = new ArrayList<>();
+    private static String name;
+    private static String option;
+    private static String status;
+    private static String description;
     private static String sep = Seperator.fileseperator();
     private static String home = System.getProperty("user.home") + sep + ".TC" + sep + "services";
-    private static String sname;
-
+    private static File service;
+    private static File home2;
+    private static Properties prop = new Properties();
+    private final List<OnDisableListener> onDisableListenerList = new ArrayList<OnDisableListener>();
+    private final List<OnEnableListener> onEnableListenerList = new ArrayList<OnEnableListener>();
+    private final List<OnRunningListener> onRunningListenerList = new ArrayList<OnRunningListener>();
+    private final List<OnStopedListener> onStopedList = new ArrayList<OnStopedListener>();
 
     /**
-     * Creates a service using the service class.
+     * Creates the service and transfers the start values ​​to it.
      *
      * @param name        Specifies the name of the service.
-     * @param status      Indicates the status of the service, whether it is enabled or disabled.
-     * @param option      Specifies the option of the service whether it is running or stopped.
+     * @param status      Indicates the status of the service (activated or deactivated).
+     * @param option      Specifies the option of the service (run or stop).
      * @param description Specifies the description of the service.
+     * @throws ServiceException Is triggered when an error occurs in the service class.
+     * @throws IOException      Is triggered if there is an IO error.
      */
-    public Service(String name, Status status, Option option, String description) throws IOException {
-        File f = new File(home);
-
-        if (!f.exists()) {
-            f.mkdirs();
-        }
-
-
-        File file = new File(home + sep + name + ".tcs");
-        sname = name;
-        if (!file.exists()) {
-            conf.saveSetting(file, "Name", name, "", false);
-            conf.saveSetting(file, "Status", status.name(), "", false);
-            conf.saveSetting(file, "Option", option.name(), "", false);
-            conf.saveSetting(file, "Description", description, "", true);
-        }
-
-
-        if ("Aktiviert".equals(status)) {
-            onEnableEvent();
-        } else if ("Deaktiviert".equals(status)) {
-            onDisableEvent();
-        }
-
-        if ("Aktiviert".equals(status)) {
-            onEnableEvent();
-        } else if ("Deaktiviert".equals(status)) {
-            onDisableEvent();
-        }
+    public Service(String name, Status status, Option option, String description) throws ServiceException, IOException {
+        this.name = name;
+        this.status = status.name();
+        this.option = option.name();
+        this.description = description;
+        init();
+        event();
     }
 
     /**
-     * Creates a service using the service class.
+     * Creates the service and transfers the start values ​​to it.
      *
      * @param name   Specifies the name of the service.
-     * @param status Indicates the status of the service, whether it is enabled or disabled.
-     * @param option Specifies the option of the service whether it is running or stopped.
+     * @param status Indicates the status of the service (activated or deactivated).
+     * @param option Specifies the option of the service (run or stop).
+     * @throws ServiceException Is triggered when an error occurs in the service class.
+     * @throws IOException      Is triggered if there is an IO error.
      */
-    public Service(String name, Status status, Option option) throws IOException {
-        File f = new File(home);
-
-        if (!f.exists()) {
-            f.mkdirs();
-        }
-
-        File file = new File(home + sep + name + ".tcs");
-        sname = name;
-        if (!file.exists()) {
-            conf.saveSetting(file, "Name", name, "", false);
-            conf.saveSetting(file, "Status", status.name(), "", false);
-            conf.saveSetting(file, "Option", option.name(), "", false);
-            conf.saveSetting(file, "Description", "", "", true);
-        }
-
-
-        if ("Aktiviert".equals(status)) {
-            onEnableEvent();
-        } else if ("Deaktiviert".equals(status)) {
-            onDisableEvent();
-        }
-
-        if ("Aktiviert".equals(status)) {
-            onEnableEvent();
-        } else if ("Deaktiviert".equals(status)) {
-            onDisableEvent();
-        }
+    public Service(String name, Status status, Option option) throws ServiceException, IOException {
+        this.name = name;
+        this.status = status.name();
+        this.option = option.name();
+        this.description = "";
+        init();
+        event();
     }
 
     /**
-     * Outputs all services that were created with the service class.
+     * Lists all registers in which the service files are checked.
      *
-     * @return Returns an array from the registered services.
+     * @return Returns all found services as an array.
+     * @throws ServiceException Is triggered when an error occurs in the service class.
+     * @throws IOException      Is triggered if there is an IO error.
      */
-    public static Service[] getServices() throws IOException {
-        List<Service> sList = new ArrayList<>();
-        File f = new File(home + sep);
-        for (File v : f.listFiles()) {
-            if (v.getName().endsWith(".tcs") && v.isFile() && !v.isDirectory()) {
-                String name = conf.loadSetting(new File(home + sep + sname + ".tcs"), "Name");
-                String status = conf.loadSetting(new File(home + sep + sname + ".tcs"), "Status");
-                String option = conf.loadSetting(new File(home + sep + sname + ".tcs"), "Option");
-                String description = conf.loadSetting(new File(home + sep + sname + ".tcs"), "Description");
-                sList.add(new Service(name, Status.valueOf(status), Option.valueOf(option), description));
-            } else {
-                continue;
-            }
+    public static Service[] getServices() throws ServiceException, IOException {
+        List<Service> serviceList = new ArrayList<Service>();
+        for (File file : home2.listFiles()) {
+            prop.loadFromXML(new FileInputStream(file));
+            Service s = new Service(prop.getProperty("name"),
+                    Status.valueOf(prop.getProperty("status")),
+                    Option.valueOf(prop.getProperty("option")),
+                    prop.getProperty("description"));
+            serviceList.add(s);
         }
-        if (sList.isEmpty()) {
-            return null;
-        } else {
-            return sList.toArray(new Service[sList.size()]);
-        }
+        return serviceList.toArray(Service[]::new);
     }
 
     /**
-     * Deletes all registries services.
-     */
-    public static void removeSevices() {
-        File v = new File(home);
-        for (File f : v.listFiles()) {
-            f.deleteOnExit();
-        }
-    }
-
-    /**
-     * Issues the option that the service has.
+     * Gets the current description of the service.
      *
-     * @return Return the option of service as a string.
+     * @return Returns the description as a string.
      */
-    public String getOption() throws IOException {
-        return conf.loadSetting(new File(home + sep + sname + ".tcs"), "Option");
-    }
-
-    /**
-     * Changes the option for the service to stop or run.
-     *
-     * @param soption Specifies the states to which the service can take run or
-     *                stop.
-     */
-    public void setOption(Option soption) throws IOException {
-        String option = conf.loadSetting(new File(home + sep + sname + ".tcs"), "Option");
-        conf.saveSetting(new File(home + sep + sname + ".tcs"), "Option", soption.name(), "", true);
-        if (option.equals("Run") || isAktiv() == true) {
-            onStartEvent();
-        } else if (option.equals("Stop") || isAktiv() == true) {
-            onStopEvent();
-        }
-
-    }
-
-    /**
-     * Get the status.
-     *
-     * @return Returns the status as a string.
-     */
-    public String getStatus() throws IOException {
-        return conf.loadSetting(new File(home + sep + sname + ".tcs"), "Status");
-    }
-
-    /**
-     * Changes the status of the service to Enabled or disabled.
-     *
-     * @param sstatus Specifies the states to which the service can take turns on or off.
-     */
-    public void setStatus(Status sstatus) throws IOException {
-        String status = conf.loadSetting(new File(home + sep + sname + ".tcs"), "Status");
-        conf.saveSetting(new File(home + sep + sname + ".tcs"), "Status", sstatus.name(), "", true);
-        if ("Aktiviert".equals(status)) {
-            onEnableEvent();
-        } else if ("Deaktiviert".equals(status)) {
-            onDisableEvent();
-        }
-
-    }
-
-    /**
-     * Get the name.
-     *
-     * @return Returns the name as a string.
-     */
-    public String getName() throws IOException {
-        return conf.loadSetting(new File(home + sep + sname + ".tcs"), "Name");
-    }
-
-    /**
-     * Change the name of the service.
-     *
-     * @param name the new name of the service.
-     */
-    public void setName(String name) throws IOException {
-        String oldname = sname;
-        conf.saveSetting(new File(home + sep + sname + ".tcs"), "Name", name, "", true);
-        File f = new File(home + sep + oldname + ".tcs");
-        f.renameTo(new File(home + sep + name + ".tcs"));
-        f.deleteOnExit();
-    }
-
-    /**
-     * Gets the description of the service.
-     *
-     * @return Returns the description of the service as a string.
-     */
-    public String getDescription() throws IOException {
-        return conf.loadSetting(new File(home + sep + sname + ".tcs"), "Description");
+    public String getDescription() {
+        return description;
     }
 
     /**
      * Changes the description of the service.
      *
-     * @param sdescription Specifies the text that is displayed as the description.
+     * @param description Specifies the new description of the service.
+     * @throws IOException Is triggered if there is an IO error.
      */
-    public void setDescription(String sdescription) throws IOException {
-        conf.saveSetting(new File(home + sep + sname + ".tcs"), "Description", sdescription, "", true);
+    public void setDescription(String description) throws IOException {
+        Service.description = description;
+        create();
+        load();
     }
 
     /**
-     * Get out if the service is enabled.
+     * Gets the current state of the option.
      *
-     * @return Returns the status as a Boolean.
+     * @return Returns the current state of the option as a string.
      */
-    public boolean isAktiv() throws IOException {
-        return "Aktiviert".equals(conf.loadSetting(new File(home + sep + sname + ".tcs"), "Status"));
+    public String getOption() {
+        return option;
     }
 
     /**
-     * Get out if the service is running.
+     * Changes the option of the service.
      *
-     * @return Returns the status of the service as a Boolean.
+     * @param option Specifies the service's new option.
+     * @throws IOException Is triggered if there is an IO error.
      */
-    public boolean isRunning() throws IOException {
-        return "Run".equals(conf.loadSetting(new File(home + sep + sname + ".tcs"), "Option"));
+    public void setOption(Option option) throws IOException {
+        Service.option = option.name();
+        create();
+        event();
+        load();
     }
 
     /**
-     * Adds an EventListener class to the Service class.
+     * Gets the current state of the status.
      *
-     * @param listener Defines the listener from the type ServiceListener.
+     * @return Returns the current state of the status as a string.
      */
-    public void addSystemListener(ServiceListener listener) {
-        onSystemListener.add(listener);
+    public String getStatus() {
+        return status;
     }
 
     /**
-     * Removes the Service class from an EventListener.
+     * Changes the status of the service.
      *
-     * @param listener Defines the listener from the type ServiceListener.
+     * @param status Specifies the status of the service.
+     * @throws IOException Is triggered if there is an IO error.
      */
-    public void removeSystemListener(ServiceListener listener) {
-        onSystemListener.remove(listener);
-    }
-
-    public boolean isServiceExists(Service service) throws IOException {
-        File f = new File(home + sep + service.getName() + ".tcs");
-        return f.exists();
+    public void setStatus(Status status) throws IOException {
+        Service.status = status.name();
+        create();
+        event();
+        load();
     }
 
     /**
-     * Deletes a regestrite service.
+     * Gets the current name of the service.
      *
-     * @param name The name of the service to be deleted.
-     * @return Returns true if the service was successfully deleted.
+     * @return Returns the name of the service as a string.
      */
-    public synchronized boolean removeService(String name) throws ServiceNotFoundException, IOException {
-        File f = new File(home + sep + name + ".tcs");
-        f.createNewFile();
-        if (!f.exists()) {
-            throw new ServiceNotFoundException(name);
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Changes the name of the service.
+     *
+     * @param name Specifies the new name of the service.
+     * @throws IOException Is triggered if there is an IO error.
+     */
+    public void setName(String name) throws IOException {
+        Service.name = name;
+        delete();
+        service = new File(home + sep + this.name + ".tcs");
+        service.createNewFile();
+        create();
+        load();
+    }
+
+    /**
+     * Deletes the service and the associated service file.
+     */
+    public void delete() {
+        service.deleteOnExit();
+    }
+
+    /**
+     * Checks whether the service is activated or deactivated.
+     *
+     * @return Returns true if the service is activated.
+     */
+    public boolean isActiv() {
+        return status.equals(Status.Aktiviert.name());
+    }
+
+    /**
+     * Checks whether the service is running or stopped.
+     *
+     * @return Returns true if the service is running.
+     */
+    public boolean isRunning() {
+        return option.equals(Option.Run.name());
+    }
+
+    /**
+     * Adds the service to the {@link de.tc.cat.the.interfaces.OnEnableListener}.
+     *
+     * @param listener Specifies the {@link de.tc.cat.the.interfaces.OnEnableListener} interface.
+     */
+    public void addEnableListener(OnEnableListener listener) {
+        onEnableListenerList.add(listener);
+    }
+
+    /**
+     * Adds the service to the {@link de.tc.cat.the.interfaces.OnDisableListener}.
+     *
+     * @param listener Specifies the {@link de.tc.cat.the.interfaces.OnDisableListener} interface.
+     */
+    public void addDisableListener(OnDisableListener listener) {
+        onDisableListenerList.add(listener);
+    }
+
+    /**
+     * Adds the service to the {@link de.tc.cat.the.interfaces.OnRunningListener}.
+     *
+     * @param listener Specifies the {@link de.tc.cat.the.interfaces.OnRunningListener} interface.
+     */
+    public void addRunningListener(OnRunningListener listener) {
+        onRunningListenerList.add(listener);
+    }
+
+    /**
+     * Adds the service to the {@link de.tc.cat.the.interfaces.OnStopedListener}.
+     *
+     * @param listener Specifies the {@link de.tc.cat.the.interfaces.OnStopedListener} interface.
+     */
+    public void addStopedListener(OnStopedListener listener) {
+        onStopedList.add(listener);
+    }
+
+    /**
+     * Removes the {@link de.tc.cat.the.interfaces.OnEnableListener} from the list.
+     *
+     * @param listener Specifies the {@link de.tc.cat.the.interfaces.OnEnableListener} interface.
+     */
+    public void removeEnableListener(OnEnableListener listener) {
+        onEnableListenerList.remove(listener);
+    }
+
+    /**
+     * Removes the {@link de.tc.cat.the.interfaces.OnDisableListener} from the list.
+     *
+     * @param listener Specifies the {@link de.tc.cat.the.interfaces.OnDisableListener} interface.
+     */
+    public void removeDisableListener(OnDisableListener listener) {
+        onDisableListenerList.remove(listener);
+    }
+
+    /**
+     * Removes the {@link de.tc.cat.the.interfaces.OnRunningListener} from the list.
+     *
+     * @param listener Specifies the {@link de.tc.cat.the.interfaces.OnRunningListener} interface.
+     */
+    public void removeRunningListener(OnRunningListener listener) {
+        onRunningListenerList.remove(listener);
+    }
+
+    /**
+     * Removes the {@link de.tc.cat.the.interfaces.OnStopedListener} from the list.
+     *
+     * @param listener Specifies the {@link de.tc.cat.the.interfaces.OnStopedListener} interface.
+     */
+    public void removeStopedListener(OnStopedListener listener) {
+        onStopedList.remove(listener);
+    }
+
+    /*
+    This is the private block.
+    This block controls the entire class functions.
+    Changes in this area can render the class unusable.
+     */
+    private void event() {
+        if (isActiv()) {
+            onEnableEvent();
+        } else {
+            onDisableEvent();
         }
-        f.deleteOnExit();
-        return true;
+
+        if (isRunning()) {
+            onRunningEvent();
+        } else {
+            onStopedEvent();
+        }
     }
 
-    /*All Private functions an methos for this class.
-    Do not delete or change any methods or functions in this area.*/
-    private void onStopEvent() {
-        onSystemListener.forEach(ServiceListener -> {
-            try {
-                ServiceListener.onStop(this.sname);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+    private boolean checkStatus() {
+        if (status.equals(Status.Aktiviert.name())) {
+            return true;
+        } else if (status.equals(Status.Deaktiviert.name())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    private void onStartEvent() {
-        onSystemListener.forEach(ServiceListener -> {
-            try {
-                ServiceListener.onStart(this.sname);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+    private boolean checkOption() {
+        if (option.equals(Option.Run.name())) {
+            return true;
+        } else if (option.equals(Option.Stop.name())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void init() throws ServiceException, IOException {
+        if (!checkOption()) {
+            throw new ServiceException("The option " + this.option + " is not a valid option.");
+        }
+        if (!checkStatus()) {
+            throw new ServiceException("The status " + this.status + " is not a valid status.");
+        }
+        File home1 = new File(home);
+        File service = new File(home + sep + this.name + ".tcs");
+        this.service = service;
+        this.home2 = home1;
+        if (!home1.exists()) {
+            home1.mkdirs();
+        }
+        if (service.exists()) {
+            load();
+        } else {
+            service.createNewFile();
+            create();
+        }
+    }
+
+    private void create() throws IOException {
+        prop.setProperty("name", this.name);
+        prop.setProperty("status", this.status);
+        prop.setProperty("option", this.option);
+        prop.setProperty("description", this.description);
+        prop.storeToXML(new ObjectOutputStream(new FileOutputStream(service)), "");
+    }
+
+    private void load() throws IOException {
+        prop.loadFromXML(new FileInputStream(service));
+        this.name = prop.getProperty("name");
+        this.status = prop.getProperty("status");
+        this.option = prop.getProperty("option");
+        this.description = prop.getProperty("description");
     }
 
     private void onEnableEvent() {
-        onSystemListener.forEach(ServiceListener -> {
-            try {
-                ServiceListener.onEnable(this.sname);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        onEnableListenerList.forEach(onEnableListenerListener -> {
+            onEnableListenerListener.onEnable(this.name);
         });
     }
 
     private void onDisableEvent() {
-        onSystemListener.forEach(ServiceListener -> {
-            try {
-                ServiceListener.onDisable(this.sname);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        onDisableListenerList.forEach(onDisableListenerList -> {
+            onDisableListenerList.onDisable(this.name);
+        });
+    }
+
+    private void onRunningEvent() {
+        onRunningListenerList.forEach(onRunningListenerList -> {
+            onRunningListenerList.onRunning(this.name);
+        });
+    }
+
+    private void onStopedEvent() {
+        onStopedList.forEach(onStopedListenerList -> {
+            onStopedListenerList.onStopet(this.name);
         });
     }
 }

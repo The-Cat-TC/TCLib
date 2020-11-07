@@ -17,6 +17,7 @@ module de.tc.cat.the.TCLib {
     requires jdk.jlink;
     requires jdk.jdeps;
     requires jdk.jartool;
+    requires jdom2;
     requires JCDP;
     requires org.fusesource.jansi;
 
@@ -25,4 +26,5 @@ module de.tc.cat.the.TCLib {
     exports de.tc.cat.the.system;
     exports de.tc.cat.the.util;
     exports de.tc.cat.the.exception;
+    exports de.tc.cat.the.interfaces;
 }
