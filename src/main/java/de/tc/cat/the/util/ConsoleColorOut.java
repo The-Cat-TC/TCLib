@@ -126,4 +126,22 @@ public class ConsoleColorOut {
     public static void printlnDebug(String msg) {
         console(4, false, Ansi.FColor.MAGENTA, Ansi.BColor.BLACK).println(msg);
     }
+
+    /**
+     * Returns a console output in unknow.
+     *
+     * @param msg Specifies the console text.
+     */
+    public static void printUnknow(String msg) {
+        console(5, false, Ansi.FColor.YELLOW, Ansi.BColor.BLACK).print(msg);
+    }
+
+    /**
+     * Returns a console output in unknow with line break.
+     *
+     * @param msg Specifies the console text.
+     */
+    public static void printlnUnknow(String msg) {
+        console(5, false, Ansi.FColor.YELLOW, Ansi.BColor.BLACK).println(msg);
+    }
 }
