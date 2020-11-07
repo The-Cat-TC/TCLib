@@ -12,8 +12,8 @@ import com.diogonunes.jcdp.color.api.Ansi;
  * The ConsoleColorOut class provides methods to enable a colored console output.
  *
  * @author Christian Trostmann
+ * @version 1.1
  * @since 13
- * @version 1.0
  */
 public class ConsoleColorOut {
     
@@ -29,7 +29,7 @@ public class ConsoleColorOut {
      */
     public static void printError(String msg)
     {
-        console(1, false, Ansi.FColor.RED, Ansi.BColor.BLACK).print(msg);
+        console(3, false, Ansi.FColor.RED, Ansi.BColor.BLACK).print(msg);
     }
     
     /**
@@ -39,7 +39,7 @@ public class ConsoleColorOut {
      */
     public static void printlnError(String msg)
     {
-        console(1, false, Ansi.FColor.RED, Ansi.BColor.BLACK).println(msg);
+        console(3, false, Ansi.FColor.RED, Ansi.BColor.BLACK).println(msg);
     }
     
     /**
@@ -49,7 +49,7 @@ public class ConsoleColorOut {
      */
     public static void printWarning(String msg)
     {
-        console(1, false, Ansi.FColor.YELLOW, Ansi.BColor.BLACK).print(msg);
+        console(2, false, Ansi.FColor.YELLOW, Ansi.BColor.BLACK).print(msg);
     }
     
     /**
@@ -59,7 +59,7 @@ public class ConsoleColorOut {
      */
     public static void printlnWarning(String msg)
     {
-        console(1, false, Ansi.FColor.YELLOW, Ansi.BColor.BLACK).println(msg);
+        console(2, false, Ansi.FColor.YELLOW, Ansi.BColor.BLACK).println(msg);
     }
     
     /**
@@ -105,8 +105,25 @@ public class ConsoleColorOut {
      * @param back Specifies the background color.
      * @param msg Specifies the console text.
      */
-    public static void printlnCustom(int loglvl,boolean tstamp,Ansi.FColor fore,Ansi.BColor back,String msg)
-    {
-        console(loglvl, tstamp, fore,back).println(msg);
+    public static void printlnCustom(int loglvl, boolean tstamp, Ansi.FColor fore, Ansi.BColor back, String msg) {
+        console(loglvl, tstamp, fore, back).println(msg);
+    }
+
+    /**
+     * Returns a console output in debug.
+     *
+     * @param msg Specifies the console text.
+     */
+    public static void printDebug(String msg) {
+        console(4, false, Ansi.FColor.MAGENTA, Ansi.BColor.BLACK).print(msg);
+    }
+
+    /**
+     * Returns a console output in debug with line break.
+     *
+     * @param msg Specifies the console text.
+     */
+    public static void printlnDebug(String msg) {
+        console(4, false, Ansi.FColor.MAGENTA, Ansi.BColor.BLACK).println(msg);
     }
 }
