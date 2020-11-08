@@ -12,14 +12,14 @@ Version|Download|Supported
 1.0.2|:x:|:x:
 1.0.3|:x:|:x:
 1.0.4|:x:|:x:
-1.0.5|:x:|:x:
-1.0.6|:x:|:x:
-1.0.7|:x:|:x:
-1.0.8|:x:|:x:
-1.0.9|:x:|:x:
-1.1.0|:x:|:x:
-1.1.1|:x:|:x:
-1.1.2|:x:|:x:
+1.0.5|:heavy_check_mark:|:x:
+1.0.6|:heavy_check_mark:|:x:
+1.0.7|:heavy_check_mark:|:x:
+1.0.8|:heavy_check_mark:|:x:
+1.0.9|:heavy_check_mark:|:x:
+1.1.0|:heavy_check_mark:|:x:
+1.1.1|:heavy_check_mark:|:x:
+1.1.2|:heavy_check_mark:|:x:
 1.1.3|:heavy_check_mark:|:heavy_check_mark:
 
 It is only supported that is marked as such.
