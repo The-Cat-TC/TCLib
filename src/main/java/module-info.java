@@ -27,4 +27,5 @@ module de.tc.cat.the.TCLib {
     exports de.tc.cat.the.util;
     exports de.tc.cat.the.exception;
     exports de.tc.cat.the.interfaces;
+    exports de.tc.cat.the.net;
 }
