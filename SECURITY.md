@@ -28,6 +28,6 @@ It is only supported that is marked as such.
 The following table shows what the symbols mean.
 Symbol|Importance
 :-----:|:-------:
-:x:|Is not supported
-:heavy_check_mark:|Is supported.
+:x:|No
+:heavy_check_mark:|Yes
 
