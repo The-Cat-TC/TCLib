@@ -30,6 +30,11 @@ package de.tc.cat.the.exception;
 public class FileTypeException extends Exception {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1800731807444388907L;
+
+	/**
      * Creates a new instance of <code>FileTypeException</code> without detail
      * message.
      */

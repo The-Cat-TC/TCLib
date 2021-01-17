@@ -47,7 +47,6 @@ public class FileRecursive {
      *
      * @return Returns the found folders.
      */
-    @SuppressWarnings("ReturnOfCollectionOrArrayField")
     public ArrayList<String> dir()
     {
         return LISTDIR;
@@ -57,7 +56,6 @@ public class FileRecursive {
      *
      * @return Returns the found files.
      */
-    @SuppressWarnings("ReturnOfCollectionOrArrayField")
     public ArrayList<String> file() {
         return LISTFILE;
     }

@@ -14,13 +14,18 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Christian Trostmann
  * @version $Id: $Id
  */
+@SuppressWarnings("exports")
 public class JFileChooser extends javax.swing.JFileChooser{
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3310691272864413885L;
+	/**
      * This is an advanced feature to the FileFilter from the JFileChooser class.
      *
      * @param filter a {@link javax.swing.filechooser.FileNameExtensionFilter} object.
      */
-    public void setFileFilter(FileNameExtensionFilter filter)
+	public void setFileFilter(FileNameExtensionFilter filter)
     {
         super.setFileFilter(filter);
     }

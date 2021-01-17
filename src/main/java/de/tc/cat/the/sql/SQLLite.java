@@ -5,7 +5,10 @@
  */
 package de.tc.cat.the.sql;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 /**
  *This class is used to create and connect an SQLite database.
  *
@@ -44,7 +47,8 @@ public class SQLLite {
      * @param name The name is what the database file should be called.
      * @return Returns a connection.
      */
-    public Connection connectetDatebase(String path, String name)
+    @SuppressWarnings("exports")
+	public Connection connectetDatebase(String path, String name)
     {
         Connection conn = null;
         try {

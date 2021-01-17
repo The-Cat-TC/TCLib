@@ -26,6 +26,7 @@ import java.util.Properties;
  * @version 1.9
  * @since 1.8
  */
+@SuppressWarnings("static-access")
 public class Service {
 
     private static String name;
@@ -52,7 +53,7 @@ public class Service {
      * @throws ServiceException Is triggered when an error occurs in the service class.
      * @throws IOException      Is triggered if there is an IO error.
      */
-    public Service(String name, Status status, Option option, String description) throws ServiceException, IOException {
+	public Service(String name, Status status, Option option, String description) throws ServiceException, IOException {
         this.name = name;
         this.status = status.name();
         this.option = option.name();
@@ -70,7 +71,7 @@ public class Service {
      * @throws ServiceException Is triggered when an error occurs in the service class.
      * @throws IOException      Is triggered if there is an IO error.
      */
-    public Service(String name, Status status, Option option) throws ServiceException, IOException {
+	public Service(String name, Status status, Option option) throws ServiceException, IOException {
         this.name = name;
         this.status = status.name();
         this.option = option.name();

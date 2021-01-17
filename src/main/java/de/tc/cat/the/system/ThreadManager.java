@@ -6,30 +6,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * The <code> ThreadManager </code> is a class that enables the grouping and management of several threads.
  */
 public class ThreadManager {
     private final List<Thread> thread = new ArrayList<Thread>();
 
     /**
-     * @param th
+     * Adds a thread to the class.
+     * @param th Specifies the thread to be added.
      */
     public void addThread(Thread th) {
         thread.add(th);
     }
 
     /**
-     * @param th
-     * @return
+     * Removes a thread from the class.
+     * @param th Specifies the thread to be removed.
+     * @return Returns true if the thread was removed successfully.
      */
     public boolean removeThread(Thread th) {
         return thread.remove(th);
     }
 
     /**
-     * @param th
-     * @return
-     * @throws ThreadNotFoundException
+     * Manage the Therads in the class.
+     * @param th Specifies the thread to be administered.
+     * @return Returns the selected thread.
+     * @throws ThreadNotFoundException Raised when the thread does not exist.
      */
     public Thread threadManager(Thread th) throws ThreadNotFoundException {
         for (Thread thread1 : thread) {
@@ -43,7 +46,8 @@ public class ThreadManager {
     }
 
     /**
-     * @return
+     * Returns an array of threads in the thread class.
+     * @return An array of threads.
      */
     public Thread[] getThreads() {
         if (thread.isEmpty()) {

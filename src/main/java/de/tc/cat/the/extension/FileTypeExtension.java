@@ -15,6 +15,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @since 1.8
  * @version 1.5
  */
+@SuppressWarnings("exports")
 public class FileTypeExtension {
 
     
@@ -25,7 +26,7 @@ public class FileTypeExtension {
      * @param extensions Specifies the extension.
      * @return Returns the created extension as FileName extensionFilter.
      */
-    public static FileNameExtensionFilter createFileNameExtensionFilter(String name,String extensions)
+	public static FileNameExtensionFilter createFileNameExtensionFilter(String name,String extensions)
     {
         return new FileNameExtensionFilter(name, extensions);
     }

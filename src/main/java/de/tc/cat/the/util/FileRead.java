@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+
 import static java.lang.String.valueOf;
 
 /**
@@ -27,7 +28,8 @@ public class FileRead {
      * @throws java.io.FileNotFoundException if any.
      * @throws java.io.IOException if any.
      */
-    public String read(File f) throws FileNotFoundException, IOException
+    @SuppressWarnings("unused")
+	public String read(File f) throws FileNotFoundException, IOException
     {
         try (var fr = new FileReader(f)) {
             var c = new char[1024];

@@ -31,6 +31,13 @@ public class NetworkInterfaces extends Device {
     private int i = 0;
     private File f = new File(path + "interface." + i);
 
+    /**
+     * Create a new network interface
+     * @param name Specifies the name of the network interface.
+     * @param description Specifies the description of the network interfaces.
+     * @throws DeviceException Is triggered if there is a problem with the DEvice Class.
+     * @throws IOException Is triggered when there is an IO error.
+     */
     public NetworkInterfaces(String name, String description) throws DeviceException, IOException {
         super(name, Status.Aktiviert, Category.Interfaces, description);
         listener();

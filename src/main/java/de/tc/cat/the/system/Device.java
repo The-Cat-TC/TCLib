@@ -27,11 +27,11 @@ import java.util.Properties;
 public class Device {
     private static String sep = Seperator.fileseperator();
     private static String home = System.getProperty("user.home") + sep + ".TC" + sep + "devices";
-    private static String name;
-    private static String category;
-    private static String status;
-    private static String description;
-    private static File device;
+    private String name;
+    private String category;
+    private String status;
+    private String description;
+    private File device;
     private static File home2;
     private static Properties prop = new Properties();
     private final List<OnDisableListener> onDisableListenerList = new ArrayList<OnDisableListener>();
@@ -255,7 +255,8 @@ public class Device {
         }
     }
 
-    private void init() throws DeviceException, IOException {
+    @SuppressWarnings("static-access")
+	private void init() throws DeviceException, IOException {
         if (!checkStatus()) {
             throw new DeviceException("The status " + this.status + " is not a valid status.");
         }

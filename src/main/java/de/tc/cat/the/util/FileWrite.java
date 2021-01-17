@@ -15,6 +15,7 @@ import java.io.*;
  * @since 1.8
  * @version 1.0
  */
+@SuppressWarnings({"unused","exports"})
 public class FileWrite {
 
     private static String exception = null;
@@ -55,7 +56,7 @@ public class FileWrite {
      * @return Gives a Boolean worth back. True when the file was written
      * successfully false if an Error arose in writing.
      */
-    public boolean write(String text, String path, FileNameExtensionFilter filefilter) {
+	public boolean write(String text, String path, FileNameExtensionFilter filefilter) {
         PrintWriter pWriter = null;
         try {
             var f = new File(path + "." + filefilter.getExtensions()[0]);
@@ -86,7 +87,7 @@ public class FileWrite {
      * @return Gives a Boolean worth back. True when the DAtei was written
      * successfully false if an Error arose in writing.
      */
-    public boolean write(String text, String path, String extension) {
+	public boolean write(String text, String path, String extension) {
         PrintWriter pWriter = null;
         File f = null;
         try {

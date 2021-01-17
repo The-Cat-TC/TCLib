@@ -28,7 +28,6 @@ public class GZip {
      * @throws java.io.IOException if any.
      */
     public void packen(File[] args) throws FileNotFoundException, IOException {
-        @SuppressWarnings("UnusedAssignment")
         int read = 0;
         byte[] data = new byte[1024];
         // Jeden �bergebenen Dateinamen bearbeiten
@@ -60,7 +59,6 @@ public class GZip {
      * @throws java.io.IOException           if any.
      */
     public static void packen(File args) throws FileNotFoundException, IOException {
-        @SuppressWarnings("UnusedAssignment")
         var read = 0;
         var data = new byte[1024];
         // Original-Datei mit Stream verbinden
@@ -89,7 +87,6 @@ public class GZip {
      * @throws java.io.IOException if any.
      */
     public static void packen(File args, String name) throws IOException {
-        @SuppressWarnings("UnusedAssignment")
         var read = 0;
         var data = new byte[1024];
         // Original-Datei mit Stream verbinden
@@ -117,8 +114,8 @@ public class GZip {
      * @throws java.io.IOException if any.
      * @throws de.tc.cat.the.exception.FileTypeException if any.
      */
-    public static void entpacken(File f) throws FileNotFoundException, IOException, FileTypeException {
-        @SuppressWarnings("UnusedAssignment")
+    @SuppressWarnings("resource")
+	public static void entpacken(File f) throws FileNotFoundException, IOException, FileTypeException {
         var read = 0;
         var data = new byte[1024];
         if (!f.getName().endsWith(".gz")) {
@@ -143,8 +140,8 @@ public class GZip {
      * @throws java.io.IOException if any.
      * @throws de.tc.cat.the.exception.FileTypeException if any.
      */
-    public static void entpacken(File[] args) throws FileNotFoundException, IOException, FileTypeException {
-        @SuppressWarnings("UnusedAssignment")
+    @SuppressWarnings("resource")
+	public static void entpacken(File[] args) throws FileNotFoundException, IOException, FileTypeException {
         var read = 0;
         var data = new byte[1024];
         for (var f : args) {

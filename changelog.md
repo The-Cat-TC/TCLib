@@ -248,3 +248,9 @@ The version was skipped in the changelog.
 * Update the Javadoc
 * Update Device class
 * Update Service class
+
+## Version 1.1.4
+
+### Add more fatures
+* Update the Javadoc
+* now with uml Diagramm

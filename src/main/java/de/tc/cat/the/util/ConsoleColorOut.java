@@ -15,6 +15,7 @@ import com.diogonunes.jcdp.color.api.Ansi;
  * @version 1.1
  * @since 13
  */
+@SuppressWarnings("exports")
 public class ConsoleColorOut {
     
     private static ColoredPrinter console(int loglvl,boolean timestamp, Ansi.FColor foreground,Ansi.BColor background)
@@ -105,7 +106,7 @@ public class ConsoleColorOut {
      * @param back Specifies the background color.
      * @param msg Specifies the console text.
      */
-    public static void printlnCustom(int loglvl, boolean tstamp, Ansi.FColor fore, Ansi.BColor back, String msg) {
+	public static void printlnCustom(int loglvl, boolean tstamp, Ansi.FColor fore, Ansi.BColor back, String msg) {
         console(loglvl, tstamp, fore, back).println(msg);
     }
 
