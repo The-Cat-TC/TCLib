@@ -9,7 +9,7 @@
  * here are all functions and classes that are used by all the
  * dependencies of the projects from The Cat.
  */
-module de.tc.cat.the.TCLib {
+module thecat.TCLib {
     requires sqlite.jdbc;
     requires java.base;
     requires java.se;
