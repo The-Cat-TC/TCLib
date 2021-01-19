@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="TCLib" verbose="1" >
+    <test name="Exception" >
+        <classes>
+            <class name="de.tc.cat.the.test.exception.Exception" />
+        </classes>
+    </test>
+</suite>
