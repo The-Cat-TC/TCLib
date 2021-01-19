@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * The <code>Service</code> class is used to create
+ * The {@codeService} class is used to create
  * a virtual service that is saved as a config file.
  * These can be used in other Java programs.
  * The created services can also be used across programs.

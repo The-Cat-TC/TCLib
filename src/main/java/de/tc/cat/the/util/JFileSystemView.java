@@ -80,13 +80,13 @@ public class JFileSystemView extends FileSystemView {
     /**
      * Determines if the given file is a root in the navigable tree(s).
      * Examples: Windows 98 has one root, the Desktop folder. DOS has one root
-     * per drive letter, <code>C:\</code>, <code>D:\</code>, etc. Unix has one root,
-     * the <code>"/"</code> directory.
+     * per drive letter, {@codeC:\}, {@codeD:\}, etc. Unix has one root,
+     * the {@code"/"} directory.
      * <p>
-     * The default implementation gets information from the <code>ShellFolder</code> class.
+     * The default implementation gets information from the {@codeShellFolder} class.
      *
-     * @param f a <code>File</code> object representing a directory
-     * @return <code>true</code> if <code>f</code> is a root in the navigable tree.
+     * @param f a {@codeFile} object representing a directory
+     * @return {@codetrue} if {@codef} is a root in the navigable tree.
      * @see #isFileSystemRoot
      */
     @Override
@@ -98,8 +98,8 @@ public class JFileSystemView extends FileSystemView {
      * Is dir the root of a tree in the file system, such as a drive
      * or partition. Example: Returns true for "C:\" on Windows 98.
      *
-     * @param dir a <code>File</code> object representing a directory
-     * @return <code>true</code> if <code>f</code> is a root of a filesystem
+     * @param dir a {@codeFile} object representing a directory
+     * @return {@codetrue} if {@codef} is a root of a filesystem
      * @see #isRoot
      * @since 1.4
      */
@@ -134,7 +134,7 @@ public class JFileSystemView extends FileSystemView {
     /**
      * Return the user's default starting directory for the file chooser.
      *
-     * @return a <code>File</code> object representing the default
+     * @return a {@codeFile} object representing the default
      * starting folder
      * @since 1.4
      */
@@ -144,11 +144,11 @@ public class JFileSystemView extends FileSystemView {
     }
 
     /**
-     * Returns the parent directory of <code>dir</code>.
+     * Returns the parent directory of {@codedir}.
      *
-     * @param dir the <code>File</code> being queried
-     * @return the parent directory of <code>dir</code>, or
-     * <code>null</code> if <code>dir</code> is <code>null</code>
+     * @param dir the {@codeFile} being queried
+     * @return the parent directory of {@codedir}, or
+     * {@codenull} if {@codedir} is {@codenull}
      */
     @Override
     public File getParentDirectory(File dir) {

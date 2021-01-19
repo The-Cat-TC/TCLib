@@ -8,7 +8,7 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 
 /**
- * The class <code> HostInfo </code> gives information about an IP address.
+ * The class {@code HostInfo } gives information about an IP address.
  * The host name, the IPv4 and the IPv6 address can be retrieved.
  * The information is provided by entering the IPv4, IPv6 or the host name.
  *
@@ -22,7 +22,7 @@ public class HostInfo {
     private InetAddress inet4;
 
     /**
-     * Creates the <code> HostInfo </code> class with a host name or IP address.
+     * Creates the {@code HostInfo } class with a host name or IP address.
      *
      * @param host Specifies the IP address or the host name as a string.
      * @throws IOException is triggered when there are problems with the class.
@@ -40,7 +40,7 @@ public class HostInfo {
     }
 
     /**
-     * Creates the <code> HostInfo </code> class with a host name or IP address.
+     * Creates the {@code HostInfo } class with a host name or IP address.
      *
      * @param host Specifies the IP address as {@link java.net.InetAddress}.
      * @throws IOException is triggered when there are problems with the class.
@@ -57,7 +57,7 @@ public class HostInfo {
     }
 
     /**
-     * Creates the <code> HostInfo </code> class with a host name or IP address.
+     * Creates the {@code HostInfo } class with a host name or IP address.
      *
      * @param host Specifies the IP address as {@link java.net.Inet6Address}.
      * @throws IOException is triggered when there are problems with the class.

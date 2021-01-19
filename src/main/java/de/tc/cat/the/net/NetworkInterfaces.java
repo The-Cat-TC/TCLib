@@ -13,9 +13,9 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * The <code> NetworkInterfaces </code> class represents a network interface.
+ * The {@code NetworkInterfaces } class represents a network interface.
  * It inherits from the class {@link de.tc.cat.the.system.Device} and also makes its functions available.
- * The <code> NetworkInterfaces </code> class creates a temporary file that is written to and read from.
+ * The {@code NetworkInterfaces } class creates a temporary file that is written to and read from.
  * Two functions of the class {@link de.tc.cat.the.system.Device} are supported but are not of use,
  * that is setCategory and setStatus.
  * Both functions have a fixed value.

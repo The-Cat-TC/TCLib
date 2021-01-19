@@ -1,7 +1,7 @@
 package de.tc.cat.the.interfaces;
 
 /**
- * The <code>OnDisableListener</code> makes all methods available for the <code>OnDisableListener</code>.
+ * The {@codeOnDisableListener} makes all methods available for the {@codeOnDisableListener}.
  *
  * @author Christian Trostmann
  * @version 1.0

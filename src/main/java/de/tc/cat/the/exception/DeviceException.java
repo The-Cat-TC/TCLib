@@ -1,7 +1,7 @@
 package de.tc.cat.the.exception;
 
 /**
- * <code> DeviceException </code> is an exception that is executed by the device class or derived classes.
+ * {@code DeviceException } is an exception that is executed by the device class or derived classes.
  * @since 14
  * @version 3.0
  * @author Christian Trostmann

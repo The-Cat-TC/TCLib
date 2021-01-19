@@ -1,7 +1,7 @@
 package de.tc.cat.the.interfaces;
 
 /**
- * The <code>OnEnableListener</code> makes all methods available for the <code>OnEnableListener</code>.
+ * The {@codeOnEnableListener} makes all methods available for the {@codeOnEnableListener}.
  *
  * @author Christian Trostmann
  * @version 1.0

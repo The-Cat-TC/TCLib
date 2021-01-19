@@ -1,7 +1,7 @@
 package de.tc.cat.the.interfaces;
 
 /**
- * The <code>OnRunningListener</code> makes all methods available for the <code>OnRunningListener</code>.
+ * The {@codeOnRunningListener} makes all methods available for the {@codeOnRunningListener}.
  *
  * @author Christian Trostmann
  * @version 1.0

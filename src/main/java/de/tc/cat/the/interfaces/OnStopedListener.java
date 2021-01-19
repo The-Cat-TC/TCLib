@@ -1,7 +1,7 @@
 package de.tc.cat.the.interfaces;
 
 /**
- * The <code>OnStopedListener</code> makes all methods available for the <code>OnStopedListener</code>.
+ * The {@codeOnStopedListener} makes all methods available for the {@codeOnStopedListener}.
  *
  * @author Christian Trostmann
  * @version 1.0

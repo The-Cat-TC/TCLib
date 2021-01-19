@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * The <code>Device</code> class is used to create
+ * The {@codeDevice} class is used to create
  * a virtual device that is saved as a config file.
  * These can be used in other Java programs.
  * The created devices can also be used across programs.

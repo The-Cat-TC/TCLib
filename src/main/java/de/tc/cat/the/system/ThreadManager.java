@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The <code> ThreadManager </code> is a class that enables the grouping and management of several threads.
+ * The {@code ThreadManager } is a class that enables the grouping and management of several threads.
  */
 public class ThreadManager {
     private final List<Thread> thread = new ArrayList<Thread>();
